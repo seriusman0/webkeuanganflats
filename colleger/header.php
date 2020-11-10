@@ -1,43 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-</head>
-<body>
-
-    <span role="button" tabindex="0">Non-button element button</span>
-    <table class="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-
-</body>
-</html>
+<meta charset="utf-8">
+<title>FLATS Submission</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Site Description Here">
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/socicon.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/lightbox.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/flickity.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/iconsmind.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/jquery.steps.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/theme.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700%7CMerriweather:300,300i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

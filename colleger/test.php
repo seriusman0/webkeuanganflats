@@ -1,5 +1,3 @@
 <?php
-    include "functions.php";
-    submissionTable();
 
-?>
+echo date('Y-m-d');
