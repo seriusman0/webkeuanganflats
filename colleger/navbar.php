@@ -1403,7 +1403,7 @@
                 HOME
               </span>
             </a>
-            <a class="btn btn--sm btn--primary type--uppercase" href="#">
+            <a class="btn btn--sm btn--primary type--uppercase" href="logout.php">
               <span class="btn__text">
                 Logout
               </span>
