@@ -55,9 +55,9 @@
       <div class="container">
         <div class="row">
           <div class="col-md-10 col-lg-8">
-            <span class="h1">Create smart, responsive websites.</span>
+            <span class="h1">Web Biro Keuangan Flats.</span>
             <p class="lead">
-              Build lean, beautiful websites with a clean and contemporary look to suit a range of purposes &mdash; From product launch to portfolio showcase.
+              Selamat pagi saudara saudari. Tuhan Yesus Memberkati
             </p>
             <a class="btn btn--primary type--uppercase" href="#">
               <span class="btn__text">
@@ -242,22 +242,22 @@
               <ul class="list-inline list--hover">
                 <li>
                   <a href="#">
-                    <span>Our Company</span>
+                    <span>Biro Keuangan Flats</span>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span>Locations</span>
+                    <span>Updates</span>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span>Products</span>
+                    <span>What's Announce</span>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span>Work With Us</span>
+                    <span>Yayasan Kaki Dian Emas</span>
                   </a>
                 </li>
               </ul>
@@ -287,7 +287,7 @@
               </ul>
             </div>
             <div>
-              <span class="type--fine-print">Made in Melbourne</span>
+              <span class="type--fine-print">FLATS INDONESIA</span>
               <img alt="Image" class="flag" src="img/flag-2.png" />
             </div>
             <div>

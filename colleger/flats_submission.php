@@ -138,76 +138,7 @@ include "config.php";
                             </ul>
                         </div>
 
-                        <div class="boxed boxed--border">
-                            <h4>Recent Submission</h4>
-                            <ul>
-                                <li class="clearfix">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-3 text-center">
-                                            <div class="icon-circle">
-                                                <i class="icon icon--lg material-icons">comment</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8 col-7">
-                                            <span class="type--fine-print">21st July, 2017</span>
-                                            <a href="#" class="block color--primary">Check out the relaunched Scope</a>
-                                            <p>
-                                                Discourse in writing dealing with a particular point or idea.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-3 text-center">
-                                            <div class="icon-circle">
-                                                <i class="icon icon--lg material-icons">mode_edit</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-7">
-                                            <span class="type--fine-print">14th July, 2017</span>
-                                            <a href="#" class="block color--primary">Tips for web typography</a>
-                                            <p>
-                                                To write beside or "written beside" is a self-contained unit of a discourse in writing dealing with a particular point or idea.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-3 text-center">
-                                            <div class="icon-circle">
-                                                <i class="icon icon--lg material-icons">favorite</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-7">
-                                            <span class="type--fine-print">12th July, 2017</span>
-                                            <a href="#" class="block color--primary">Where do you source your stock photography?</a>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-3 text-center">
-                                            <div class="icon-circle">
-                                                <i class="icon icon--lg material-icons">comment</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-7">
-                                            <span class="type--fine-print">3rd July, 2017</span>
-                                            <a href="#" class="block color--primary">Share your rapid development workflow</a>
-                                            <p>
-                                                Of a discourse in writing dealing with a particular point or idea.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#" class="type--fine-print pull-right">View All</a>
-                        </div>
+
                     </div>
                 </div>
                 <!--end of row-->
@@ -267,7 +198,7 @@ include "config.php";
         });
         //END Aksi Insert
 
-        //Begin Tampil Detail Karyawan
+        //Begin Tampil Detail Submission
         $(document).on('click', '.view_sub', function() {
             var sub_id = $(this).attr("id");
             $.ajax({
@@ -282,7 +213,23 @@ include "config.php";
                 }
             });
         });
-        //End Tampil Detail Karyawan
+        //End Tampil Detail Submission
+
+        //Begin Send Submission
+        $(document).on('click', '.send_sub', function() {
+            var sub_id = $(this).attr("id");
+            $.ajax({
+                url: "insert.php?act=send",
+                method: "POST",
+                data: {
+                    sub_id: sub_id
+                },
+                success: function(data) {
+                    $('#form_table').html(data);
+                }
+            });
+        });
+        //End Send Submission
 
         //Begin Tampil Form Edit
         $(document).on('click', '.edit_data', function() {
