@@ -75,7 +75,7 @@ $kampusMhs = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM kampus WHERE 
                     </tr>
                     </thead>
                     <tbody>";
-  $laporan = mysqli_query($conn, "SELECT * FROM pengeluaran WHERE nif='$_POST[nama_mhs]' AND semester='$_POST[semester]' ");
+  $laporan = mysqli_query($conn, "SELECT * FROM pengeluaran WHERE nif='$_POST[nama_mhs]' AND semester='$_POST[semester]' ORDER BY tgl ASC");
   $total = 0;
   $no = 1;
   while ($i = mysqli_fetch_array($laporan)) {
