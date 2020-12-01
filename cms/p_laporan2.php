@@ -83,7 +83,7 @@ $kampusMhs = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM kampus WHERE 
 
     echo "<tr>
                                       <td align=center>$no</td>
-                                      <td align=center>$i[tgl]</td>
+                                      <td align=center>".tgl_indo($i['tgl'])."</td>
                                       <td>$keperluanMhs[nama_keperluan]        <i><b>$i[ket]</b></i></td>
                                       <td align='right'>" . rupiah($i['nominal']) . "</td>
                                     </tr>";
@@ -129,7 +129,7 @@ $kampusMhs = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM kampus WHERE 
 
     echo "<tr rules='rows'>
                                           <td align=center>$no</td>
-                                          <td align=center>$i[tgl]</td>
+                                          <td align=center>".tgl_indo($i['tgl'])."</td>
                                           <td>$keperluanMhs[nama_keperluan]        <i><b>$i[ket]</b></i></td>
                                           <td align='right'>" . rupiah($i['nominal']) . "</td>
                                         </tr>";

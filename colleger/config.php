@@ -2,7 +2,7 @@
 $server = "localhost";
 $username = "root";
 $password = "";
-$database = "dbwebkeuangan";
+$database = "keuanganflats";
 
 $conn = mysqli_connect($server,$username,$password,$database) or die ("Gagal");
 ?>
