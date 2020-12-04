@@ -100,6 +100,13 @@
         </li>
       </a>
 
+      <a href='index.php?page=gembala'>
+        <li>
+          <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+          <span class="glyphicon-class">Gembala</span>
+        </li>
+      </a>
+
       <?php if ($_SESSION['level'] == '0') { ?>
 
         <a href='index.php?page=kaskecil'>

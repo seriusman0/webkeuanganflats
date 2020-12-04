@@ -33,6 +33,7 @@
             menu {
                 display: none;
             }
+        }
     </script>
 
 </head>
@@ -89,6 +90,8 @@
                 include "flats_datauser.php";
             } elseif ($_GET['page'] == 'keperluanmhs') {
                 include "flats_keperluan_mhs.php";
+            } elseif ($_GET['page'] == 'gembala') {
+                include "flats_gembala.php";
             }
             ?>
         </div><!-- /pad-wrapper -->

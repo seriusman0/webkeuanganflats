@@ -33,14 +33,23 @@ if ($_GET['aksi'] == '') {
                     </thead>
                     <tbody>
                         <?php
-                        $pengeluaran = mysqli_query($conn, "SELECT * FROM pengeluaran ORDER BY id_pengeluaran DESC LIMIT 500");
+                        $pengeluaran = mysqli_query($conn, "SELECT 
+                        pengeluaran.id_pengeluaran, 
+                        mahasiswa.nama_mhs,
+                        mahasiswa.angkatan, 
+                        pengeluaran.semester,
+                        kampus.nama_kampus, 
+                        pengeluaran.ta, 
+                        keperluan.nama_keperluan,
+                        pengeluaran.ket, 
+                        pengeluaran.nominal, 
+                        pengeluaran.tgl, 
+                        user_management.user_name
+                        FROM pengeluaran, mahasiswa, kampus, keperluan, user_management 
+                        WHERE  pengeluaran.nif = mahasiswa.nif && pengeluaran.keperluan= keperluan.id_keperluan && pengeluaran.iBy = user_management.id_user && mahasiswa.kampus = kampus.npsn
+                        ORDER BY pengeluaran.id_pengeluaran DESC LIMIT 500");
                         $no = 1;
                         while ($i = mysqli_fetch_array($pengeluaran)) {
-                            $qPengeluaran = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nif = '$i[nif]'"));
-                            $qkampus = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM kampus WHERE npsn = '$qPengeluaran[kampus]'"));
-                            $qkeperluan = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM keperluan WHERE id_keperluan = '$i[keperluan]'"));
-                            $qinBy = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM user_management WHERE id_user = '$i[iBy]'"));
-
                             $semPeriod = "Ganjil";
                             if ((intval($i['semester'] % 2)) == 0) {
                                 $semPeriod = "Genap";
@@ -48,14 +57,14 @@ if ($_GET['aksi'] == '') {
 
                             echo "<tr class='gradeX'>
                                     <td>$no</td>
-                                    <td>$qPengeluaran[nama_mhs]</td>
-                                    <td align=center>$qPengeluaran[angkatan]</td>
+                                    <td>$i[nama_mhs]</td>
+                                    <td align=center>$i[angkatan]</td>
                                     <td align=center>$i[semester]</td>
-                                    <td>$qkampus[nama_kampus]</td>
+                                    <td>$i[nama_kampus]</td>
                                     <td>$i[ta] $semPeriod</td>
-                                    <td>$qkeperluan[nama_keperluan]  <b><i>$i[ket]</i></b></td>
+                                    <td>$i[nama_keperluan]  <b><i>$i[ket]</i></b></td>
                                     <td>" . rupiah($i['nominal']) . "</td>
-                                    <td>$qinBy[user_name]</td>
+                                    <td>$i[user_name]</td>
                                     <td>$i[tgl]</td>";
                             echo "<td style='width:80px' class='text-right'>
                                                   <a class='btn' href='index.php?page=pengeluaran&aksi=edit&id=$i[id_pengeluaran]' title='Edit Data Pengeluaran ini'><i class='fa fa-pencil-square-o'></i></a>
@@ -193,6 +202,72 @@ if ($_GET['aksi'] == '') {
                         </div>
                     </div>
                 </form>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead class='alert-info'>
+                        <tr class='gradeX'>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th style='width:10px' class='text-right'>Angkatan</th>
+                            <th>Semester</th>
+                            <th>Kampus</th>
+                            <th>Tahun Ajaran</th>
+                            <th>Keperluan</th>
+                            <th>Nominal</th>
+                            <th>inBy</th>
+                            <th>Tanggal</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $pengeluaran = mysqli_query($conn, "SELECT 
+                        pengeluaran.id_pengeluaran, 
+                        mahasiswa.nama_mhs,
+                        mahasiswa.angkatan, 
+                        pengeluaran.semester,
+                        kampus.nama_kampus, 
+                        pengeluaran.ta, 
+                        keperluan.nama_keperluan,
+                        pengeluaran.ket, 
+                        pengeluaran.nominal, 
+                        pengeluaran.tgl, 
+                        user_management.user_name
+                        FROM pengeluaran, mahasiswa, kampus, keperluan, user_management 
+                        WHERE  pengeluaran.nif = mahasiswa.nif && pengeluaran.keperluan= keperluan.id_keperluan && pengeluaran.iBy = user_management.id_user && mahasiswa.kampus = kampus.npsn
+                        ORDER BY pengeluaran.id_pengeluaran DESC LIMIT 10");
+                        $no = 1;
+                        while ($i = mysqli_fetch_array($pengeluaran)) {
+                            $semPeriod = "Ganjil";
+                            if ((intval($i['semester'] % 2)) == 0) {
+                                $semPeriod = "Genap";
+                            }
+
+                            echo "<tr class='gradeX'>
+                                    <td>$no</td>
+                                    <td>$i[nama_mhs]</td>
+                                    <td align=center>$i[angkatan]</td>
+                                    <td align=center>$i[semester]</td>
+                                    <td>$i[nama_kampus]</td>
+                                    <td>$i[ta] $semPeriod</td>
+                                    <td>$i[nama_keperluan]  <b><i>$i[ket]</i></b></td>
+                                    <td>" . rupiah($i['nominal']) . "</td>
+                                    <td>$i[user_name]</td>
+                                    <td>$i[tgl]</td>";
+                            echo "<td style='width:80px' class='text-right'>
+                                                  <a class='btn' href='index.php?page=pengeluaran&aksi=edit&id=$i[id_pengeluaran]' title='Edit Data Pengeluaran ini'><i class='fa fa-pencil-square-o'></i></a>
+                                                  <a class='btn' href='index.php?page=pengeluaran&aksi=hapus&id=$i[id_pengeluaran]' title='Hapus Pengeluaran ini' onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\" ><i class='fa fa-trash-o'></i></a>";
+                            echo "</td>
+                                 </tr>";
+                            $no++;
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
