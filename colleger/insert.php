@@ -48,18 +48,9 @@ if ($_GET['act'] == 'add') {
   mysqli_query($conn, "UPDATE pengajuan SET status = '1' WHERE id_pengajuan = '$_POST[sub_id]'");
   submissionTable("0420206");
 } elseif ($_GET['act'] == 'upPass') {
-  echo "<script>
-    alert('Berhasil masuk ke act');  
-  </script>";
   $newPass = $_POST["pass1"];
-  echo "<script>
-  alert(Your will be Logout a while);
-  </script>";
   $newPass = password_hash($newPass, PASSWORD_DEFAULT);
-
-  mysqli_query($conn, "UPDATE mahasiswa SET status = '1' WHERE nif = '$_SESSION[nif]'");
-  echo "berhasil";
-  // header('Location:logout.php');
+  mysqli_query($conn, "UPDATE mahasiswa SET status = '1', password_mhs = '$newPass' WHERE nif = '$_SESSION[nif]'");
 } else {
   mysqli_query($conn, "DELETE FROM pengajuan WHERE id_pengajuan = '$_POST[sub_id]'");
 }

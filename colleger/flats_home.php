@@ -208,8 +208,7 @@
               // alert("Before send");
             },
             success: function(data) {
-              // alert("Success send");
-              $('#newPass')[0].reset();
+              alert("Update Password Success. Please Re-Login. God Bless You");
               window.location = 'logout.php';
             }
           });
