@@ -130,6 +130,45 @@ if ($_GET['aksi'] == '') {
                         </div>
                     </div>
                 </form>
+
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead class='alert-info'>
+                            <tr>
+                                <th>NIG</th>
+                                <th>Nama Lengkap</th>
+                                <th>Contact</th>
+                                <th>Token</th>
+                                <th>Username</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $gembala = mysqli_query($conn, "SELECT * FROM gembala ORDER BY nama_gembala ASC");
+
+                            $no = 1;
+                            while ($i = mysqli_fetch_array($gembala)) {
+                                echo "<tr class='gradeX'>
+                                    <td width=7% align='center'>$no</td>
+                                    <td width=20%>$i[nama_gembala]</td>
+                                    <td width=7% align=center>$i[contact_gembala]</td>
+                                    <td>$i[token_gembala]</td>
+                                    <td>$i[username_gembala]</td>";
+                                echo "<td style='width:130px' class='text-right'><a class='btn' href='index.php?page=gembala&aksi=edit&id=$i[nig]'><i class='fa fa-pencil-square-o'></i></a>
+                                                  <a class='btn' href='index.php?page=gembala&aksi=hapus&id=$i[nig]'  onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\"  title='Hapus Gembala ini'><i class='fa fa-trash-o'></i></a>
+                                                  <a class='btn' href='#' title='Lihat Data Gembala'><i class='fa fa-user'></i></a>";
+                                echo "</td>
+                                 </tr>";
+                                $no++;
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
         </div>
     </div>

@@ -48,6 +48,12 @@
             </a>
         </li>
         <li>
+            <a style='padding-top:8px; color:#fff; border-radius:0px; text-align:left; padding-left:15px' class="btn btn-success" href="index.php?page=gembala">
+                <i style='margin-top:-11px; color:#fff' class="fa fa-files-o"></i>
+                <span>Data Gembala</span>
+            </a>
+        </li>
+        <li>
             <a style='padding-top:8px; color:#fff; border-radius:0px; text-align:left; padding-left:15px' class="btn btn-success" href="index.php?page=kampus">
                 <i style='margin-top:-11px; color:#fff' class="fa fa-files-o"></i>
                 <span>Data Kampus</span>
