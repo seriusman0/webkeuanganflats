@@ -1398,7 +1398,7 @@
           </div>
           <!--end module-->
           <div class="bar__module">
-            <a class="btn btn--sm type--uppercase" href="#">
+            <a class="btn btn--sm type--uppercase" href="index.php">
               <span class="btn__text">
                 HOME
               </span>

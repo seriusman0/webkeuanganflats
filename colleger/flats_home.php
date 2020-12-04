@@ -22,6 +22,31 @@
 </head>
 
 <body class=" ">
+  <?php
+  if ($_SESSION["status"] == 0) { ?>
+    <div class="modal-container" data-autoshow="1000">
+      <div class="modal-content">
+        <div class="container">
+          <p>Untuk menjaga keamanan informasi Keuangan Saudara-saudari</p>
+          <p>Sangat di sarankan untuk mengganti password default</p>
+          <p>Password anda dienkiripsi dengan algoritma khusus yang menjamin keamanan password</p>
+          <form action="insert.php" method="POST" id="newPass">
+            <div class="col-md-12">
+              <label>New Password :</label>
+              <input type="text" name="pass1" placeholder="Type New Password Here" id="pass1" />
+            </div>
+            <div class="col-md-12">
+              <label>Re-enter Password:</label>
+              <input type="text" name="pass2" placeholder="Re-enter Password" id="pass2" />
+            </div>
+            <div>
+              <input type="submit" value="SUBMIT" name="submit" id="submit">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <?php  }  ?>
   <a id="start"></a>
   <?php include "navbar.php" ?>
   <div class="main-container">
@@ -165,6 +190,34 @@
   <script src="js/spectragram.min.js"></script>
   <script src="js/smooth-scroll.min.js"></script>
   <script src="js/scripts.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Begin Aksi Insert
+      $('#newPass').on("submit", function(event) {
+        event.preventDefault();
+        if ($('#pass1').val() != $('#pass2').val()) {
+          alert("Password did't match ");
+          $('#newPass')[0].reset();
+        } else {
+          $.ajax({
+            url: "insert.php?act=upPass",
+            method: "POST",
+            data: $('#newPass').serialize(),
+            beforeSend: function() {
+
+              // alert("Before send");
+            },
+            success: function(data) {
+              // alert("Success send");
+              $('#newPass')[0].reset();
+              window.location = 'logout.php';
+            }
+          });
+        }
+      });
+      //END Aksi Insert
+    });
+  </script>
 </body>
 
 </html>

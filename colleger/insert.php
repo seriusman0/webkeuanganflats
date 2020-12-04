@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config.php';
 include 'functions.php';
 
@@ -7,6 +8,7 @@ if ($_GET['act'] == 'add') {
   mysqli_query($conn, "INSERT INTO pengajuan VALUES(
     '','0420206','$_POST[necessity]', '$_POST[description]', 
     '$_POST[value]', '$tgl', '', '', '0', '')");
+  submissionTable("0420206");
 } elseif ($_GET['act'] == 'view') {
   $row = mysqli_fetch_array(mysqli_query($conn, "SELECT *, keperluan.nama_keperluan FROM pengajuan JOIN keperluan ON keperluan.id_keperluan = pengajuan.keperluan_mhs WHERE id_pengajuan = '$_POST[sub_id]'"));
   echo "
@@ -40,11 +42,26 @@ if ($_GET['act'] == 'add') {
         <td width=30%><label>Attachment</label></td>  
         <td width=70%>$row[doc]</td>  
     </tr>";
+  submissionTable("0420206");
   return;
 } elseif ($_GET['act'] == 'send') {
   mysqli_query($conn, "UPDATE pengajuan SET status = '1' WHERE id_pengajuan = '$_POST[sub_id]'");
+  submissionTable("0420206");
+} elseif ($_GET['act'] == 'upPass') {
+  echo "<script>
+    alert('Berhasil masuk ke act');  
+  </script>";
+  $newPass = $_POST["pass1"];
+  echo "<script>
+  alert(Your will be Logout a while);
+  </script>";
+  $newPass = password_hash($newPass, PASSWORD_DEFAULT);
+
+  mysqli_query($conn, "UPDATE mahasiswa SET status = '1' WHERE nif = '$_SESSION[nif]'");
+  echo "berhasil";
+  // header('Location:logout.php');
 } else {
   mysqli_query($conn, "DELETE FROM pengajuan WHERE id_pengajuan = '$_POST[sub_id]'");
 }
 
-submissionTable("0420206");
+// 

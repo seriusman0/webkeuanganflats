@@ -60,6 +60,10 @@ function sub_status($stat)
     }
 }
 
+function newPass($newPass)
+{
+}
+
 function upload()
 {
 
