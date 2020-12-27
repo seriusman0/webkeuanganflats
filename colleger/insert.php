@@ -62,7 +62,7 @@ if ($_GET['act'] == 'add') {
 
     <tr>  
         <td width=30%><label>Attachment</label></td>  
-        <td width=70%>$row[doc]</td>  
+        <td width=70%><a href=" . $_SESSION["repo"] . ">Google Drive</a></td>  
     </tr>";
   // submissionTable($_SESSION["nif"]);
   return;

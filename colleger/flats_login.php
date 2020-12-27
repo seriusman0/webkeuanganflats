@@ -15,6 +15,7 @@ if (isset($_POST['login'])) {
             $_SESSION["name"] = $row["nama_mhs"];
             $_SESSION["nif"] = $row["nif"];
             $_SESSION["status"] = $row["status"];
+            $_SESSION["repo"] = $row["repo"];
         }
         header('location:index.php');
     } else {

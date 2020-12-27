@@ -90,6 +90,8 @@
                 include "flats_datauser.php";
             } elseif ($_GET['page'] == 'keperluanmhs') {
                 include "flats_keperluan_mhs.php";
+            } elseif ($_GET['page'] == 'pengajuanmhs') {
+                include "flats_pengajuan_mhs.php";
             } elseif ($_GET['page'] == 'gembala') {
                 include "flats_gembala.php";
             }

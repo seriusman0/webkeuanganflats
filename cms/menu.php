@@ -66,6 +66,12 @@
             </a>
         </li>
         <li>
+            <a style='padding-top:8px; color:#fff; border-radius:0px; text-align:left; padding-left:15px' class="btn btn-danger" href="index.php?page=pengajuanmhs">
+                <i style='margin-top:-11px; color:#fff' class="fa fa-files-o"></i>
+                <span>Pengajuan</span>
+            </a>
+        </li>
+        <li>
             <a style='padding-top:8px; color:#fff; border-radius:0px; background:#865531; text-align:left; padding-left:15px' class="btn dropdown-toggle" href="#">
                 <i style='margin-top:-11px; color:#fff' class="fa fa-table"></i>
                 <span>Data User</span> <b class="caret"></b>

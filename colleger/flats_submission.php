@@ -71,6 +71,11 @@ session_start();
                                                     <input type="submit" value="SUBMIT" name="add" id="add">
                                                 </div>
                                             </form>
+                                            <p>
+                                                Untuk membantu proses verifikasi Biro, Upload file sesuai format pengajuan
+                                                <br /> Letakkan file
+                                                <a href="<?= $_SESSION['repo'] ?>">disini &rarr;</a>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

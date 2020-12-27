@@ -93,6 +93,13 @@
         </li>
       </a>
 
+      <a href='index.php?page=pengajuanmhs'>
+        <li>
+          <span class="glyphicon glyphicon-eject" aria-hidden="true"></span>
+          <span class="glyphicon-class">Pengajuan</span>
+        </li>
+      </a>
+
       <a href='index.php?page=laporan'>
         <li>
           <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
