@@ -1,6 +1,7 @@
 <?php
 include "functions.php";
 include "config.php";
+session_start();
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,22 +20,21 @@ include "config.php";
                     <div class="boxed boxed--border">
                         <ul class="row row--list clearfix text-center">
                             <li class="col-md-3 col-6">
-                                <span class="h6 type--uppercase type--fade">Draft</span>
-                                <span class="h3">220</span>
+                                <span class="h6 type--uppercase type--fade">-------</span>
+                                <span class="h3">-------</span>
                             </li>
                             <li class="col-md-3 col-6">
                                 <span class="h6 type--uppercase type--fade">
-                                    Processed By The Shepherd</span>
-                                <span class="h3">14</span>
+                                    -------</span>
+                                <span class="h3">-------</span>
                             </li>
                             <li class="col-md-3 col-6">
-                                <span class="h6 type--uppercase type--fade">Processed By The
-                                    FLATS Finance Department</span>
-                                <span class="h3">2,129</span>
+                                <span class="h6 type--uppercase type--fade">-------</span>
+                                <span class="h3">-------</span>
                             </li>
                             <li class="col-md-3 col-6">
-                                <span class="h6 type--uppercase type--fade">Approved</span>
-                                <span class="h3">119</span>
+                                <span class="h6 type--uppercase type--fade">-------</span>
+                                <span class="h3">-------</span>
                             </li>
                         </ul>
                         <div>
@@ -113,33 +113,7 @@ include "config.php";
                         </table>
                     </div>
 
-                    <div class="col-lg-8">
-                        <div class="boxed boxed--lg boxed--border">
-                            <div class="text-block text-center">
-                                <span class="h5">Seriusman Waruwu</span>
-                                <span>Teknik Informatika, Universitas Negeri Surabaya</span>
-                                <span class="label">College</span>
-                            </div>
-                            <div class="text-block clearfix text-center">
-                                <ul class="row row--list">
-                                    <li class="col-md-4">
-                                        <span class="type--fine-print block">Batch:</span>
-                                        <span>42&nbsp;</span>
-                                    </li>
-                                    <li class="col-md-4">
-                                        <span class="type--fine-print block">Total Expenses:</span>
-                                        <span>Rp 1.000.000</span>
-                                    </li>
-                                    <li class="col-md-4">
-                                        <span class="type--fine-print block">Contact:</span>
-                                        <a href="#">seriusmanwaruwu.flats.42@gmail.com</a>
-                                    </li>
-                            </div>
-                            </ul>
-                        </div>
 
-
-                    </div>
                 </div>
                 <!--end of row-->
             </div>

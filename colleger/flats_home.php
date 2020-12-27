@@ -155,13 +155,10 @@
             </div>
             <div>
               <span class="type--fine-print">FLATS INDONESIA</span>
-              <img alt="Image" class="flag" src="img/flag-2.png" />
+              <img alt="Image" class="flag" src="img/flats_icon.png" />
             </div>
             <div>
-              <span class="type--fine-print">&copy;
-                <span class="update-year"></span> Stack Inc.</span>
-              <a class="type--fine-print" href="#">Privacy Policy</a>
-              <a class="type--fine-print" href="#">Legal</a>
+              <span class="type--fine-print"></span>
             </div>
           </div>
         </div>
