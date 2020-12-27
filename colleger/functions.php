@@ -113,3 +113,56 @@ function upload()
     move_uploaded_file($tmpName, '../img/' . $namaFileBaru);
     return $namaFileBaru;
 }
+
+function test()
+{
+?>
+    <script>
+        alert("Sampai disini")
+    </script>
+<?php
+}
+
+function completeMessage()
+{
+?>
+    <script>
+        alert("Berhasil")
+    </script>
+<?php
+}
+
+function failedMessage()
+{
+?>
+    <script>
+        alert("Berhasil")
+    </script>
+<?php
+}
+
+
+function qtest()
+{
+    global $conn;
+    mysqli_query(
+        $conn,
+        "INSERT INTO `pengajuan` 
+    (`id_pengajuan`, 
+    `nif`, 
+    `keperluan_mhs`, 
+    `other`, `nominal`, 
+    `tgl`, 
+    `status`, 
+    `doc`) 
+    VALUES 
+    (NULL, 
+    '1234576', 
+    '12', 
+    'sdfjskd', 
+    '19898', 
+    '2020-12-12', 
+    '0', 
+    NULL)"
+    );
+}

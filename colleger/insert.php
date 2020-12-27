@@ -4,16 +4,33 @@ include 'config.php';
 include 'functions.php';
 
 if ($_GET['act'] == 'add') {
-
-  $tgl = date('Y-m-d');
-  mysqli_query($conn, "INSERT INTO pengajuan VALUES(
-    '','$_SESSION[nif]','$_POST[necessity]', '$_POST[description]', 
-    '$_POST[value]', '$tgl', '', '', '0', '')");
-?>
-  <script>
-    alert("Sampai disini")
-  </script>
-<?php
+  var_dump($_POST);
+  echo $_SESSION["nif"];
+  $sDate = date("Y-m-d");
+  $sqlExecute = mysqli_query(
+    $conn,
+    "INSERT INTO `pengajuan` 
+    (`id_pengajuan`, 
+    `nif`, 
+    `keperluan_mhs`, 
+    `other`, `nominal`, 
+    `tgl`, 
+    `status`, 
+    `doc`) 
+  VALUES(
+    NULL,
+    '$_SESSION[nif]',
+    '$_POST[necessity]', 
+    '$_POST[description]',
+    '$_POST[value]', 
+    '2020-12-12', 
+    '0', 
+    NULL
+    )"
+  );
+  if ($sqlExecute) {
+    completeMessage();
+  } else failedMessage();
   submissionTable("0420206");
 } elseif ($_GET['act'] == 'view') {
   $row = mysqli_fetch_array(mysqli_query($conn, "SELECT *, keperluan.nama_keperluan FROM pengajuan JOIN keperluan ON keperluan.id_keperluan = pengajuan.keperluan_mhs WHERE id_pengajuan = '$_POST[sub_id]'"));

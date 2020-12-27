@@ -1,8 +1,7 @@
 <?php
 
 include "functions.php";
-
-
+// qtest();
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +15,7 @@ include "functions.php";
 
 <body>
   <?php
-  echo sub_status(10);
+  echo date("Y-m-d");
   ?>
 </body>
 
