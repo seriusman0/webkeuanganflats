@@ -94,23 +94,9 @@ session_start();
                         </div>
                         <!--end of modal instance-->
 
-
-                        <table class="border--round table--alternate-row">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Necessity</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="form_table">
-
-                                <?php
-                                submissionTable("0420206");
-                                ?>
-                            </tbody>
-                        </table>
+                        <div id="form_table">
+                            <?php submissionTable($_SESSION["nif"]) ?>
+                        </div>
                     </div>
 
 
@@ -119,7 +105,6 @@ session_start();
             </div>
             <!--end of container-->
         </section>
-        <?php include "footer.php" ?>
     </div>
     <!--<div class="loader"></div>-->
     <a class="back-to-top inner-link" href="#start" data-scroll-class="100vh:active">

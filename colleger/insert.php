@@ -4,8 +4,7 @@ include 'config.php';
 include 'functions.php';
 
 if ($_GET['act'] == 'add') {
-  var_dump($_POST);
-  echo $_SESSION["nif"];
+
   $sDate = date("Y-m-d");
   $sqlExecute = mysqli_query(
     $conn,
@@ -31,7 +30,7 @@ if ($_GET['act'] == 'add') {
   if ($sqlExecute) {
     completeMessage();
   } else failedMessage();
-  submissionTable("0420206");
+  submissionTable($_SESSION["nif"]);
 } elseif ($_GET['act'] == 'view') {
   $row = mysqli_fetch_array(mysqli_query($conn, "SELECT *, keperluan.nama_keperluan FROM pengajuan JOIN keperluan ON keperluan.id_keperluan = pengajuan.keperluan_mhs WHERE id_pengajuan = '$_POST[sub_id]'"));
   echo "

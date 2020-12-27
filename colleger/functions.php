@@ -11,143 +11,159 @@ function submissionTable($id)
     ORDER BY pengajuan.tgl DESC ");
 
     $no = 1;
+?>
+    <div id="form_table">
+        <table class="border--round table--alternate-row">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Necessity</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
 
-    // var_dump($result);
-    while ($row = mysqli_fetch_array($result)) {
-        echo "<tr>
-            <td>$no</td>
-            <td>$row[nama_keperluan]</td>
-            <td>" . sub_status($row['status']) . "</td>
-            <td>
-            <div><input type='button' name='delete' value='Delete' id='$row[id_pengajuan]' class='btn btn--primary delete_sub' /></div>
-            <div><input type='button' name='view' value='View' id='$row[id_pengajuan]' class='btn btn--primary view_sub' /></div>
+                <?php
+                // var_dump($result);
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr>
+                        <td>$no</td>
+                        <td>$row[nama_keperluan]</td>
+                        <td>" . sub_status($row['status']) . "</td>
+                        <td>
+                            <div><input type='button' name='delete' value='Delete' id='$row[id_pengajuan]' class='btn btn--primary delete_sub' /></div>
+                            <div><input type='button' name='view' value='View' id='$row[id_pengajuan]' class='btn btn--primary view_sub' /></div>
             ";
-        if ($row['status'] == 0) {
-            echo "<div><input type='button' name='send' value='Send' id='$row[id_pengajuan]' class='btn btn--primary send_sub' /></div>";
+                    if ($row['status'] == 0) {
+                        echo "<div><input type='button' name='send' value='Send' id='$row[id_pengajuan]' class='btn btn--primary send_sub' /></div>";
+                    }
+                    echo "</td>
+                                </tr>";
+
+                    $no++;
+                }
+                ?>
+            </tbody>
+        </table>
+    </div><?php
         }
-        echo "</td>
-         </tr>";
-        $no++;
-    }
-}
+        function sub_status($stat)
+        {
+            switch ($stat) {
+                case 0: {
+                        return "Draft";
+                        break;
+                    }
+                case 1: {
+                        return "Not Verified";
+                        break;
+                    }
+                case 2: {
+                        return "Verified By Shepherd";
+                        break;
+                    }
+                case 3: {
+                        return "Proccessed By Biro";
+                        break;
+                    }
+                case 4: {
+                        return "Verified";
+                        break;
+                    }
+                case 5: {
+                        return "Decline";
+                        break;
+                    }
+                default: {
+                        return "Unknown Status";
+                        break;
+                    }
+            }
+        }
 
+        function newPass($newPass)
+        {
+        }
 
-function sub_status($stat)
-{
-    switch ($stat) {
-        case 0: {
-                return "Draft";
-                break;
-            }
-        case 1: {
-                return "Not Verified";
-                break;
-            }
-        case 2: {
-                return "Verified By Shepherd";
-                break;
-            }
-        case 3: {
-                return "Proccessed By Biro";
-                break;
-            }
-        case 4: {
-                return "Verified";
-                break;
-            }
-        case 5: {
-                return "Decline";
-                break;
-            }
-        default: {
-                return "Unknown Status";
-                break;
-            }
-    }
-}
+        function upload()
+        {
 
-function newPass($newPass)
-{
-}
+            $namaFile = $_FILES['gambar']['name'];
+            $ukuranFile = $_FILES['gambar']['size'];
+            $error = $_FILES['gambar']['error'];
+            $tmpName = $_FILES['gambar']['tmp_name'];
 
-function upload()
-{
-
-    $namaFile = $_FILES['gambar']['name'];
-    $ukuranFile = $_FILES['gambar']['size'];
-    $error = $_FILES['gambar']['error'];
-    $tmpName = $_FILES['gambar']['tmp_name'];
-
-    // cek apakah gambar di upload
-    if ($error === 4) {
-        echo "<script>
+            // cek apakah gambar di upload
+            if ($error === 4) {
+                echo "<script>
 				alert ('Pilih Gambar terlebih dahulu');
 			</script>";
-        return false;
-    }
+                return false;
+            }
 
-    //cek apakah yang di upload adalah gambar
-    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-    $ekstensiGambar = explode('.', $namaFile);
-    $ekstensiGambar = strtolower(end($ekstensiGambar));
-    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-        echo "<script>
+            //cek apakah yang di upload adalah gambar
+            $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+            $ekstensiGambar = explode('.', $namaFile);
+            $ekstensiGambar = strtolower(end($ekstensiGambar));
+            if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+                echo "<script>
 				alert ('Yang Anda Upload Bukan Gambar');
 			</script>";
-        return false;
-    }
+                return false;
+            }
 
-    //cek jika ukuran terlalu besar 
-    if ($ukuranFile > 3000000) {
-        echo "<script>
+            //cek jika ukuran terlalu besar 
+            if ($ukuranFile > 3000000) {
+                echo "<script>
 				alert ('Ukuran Gambar telalu Besar');
 			</script>";
-        return false;
-    }
+                return false;
+            }
 
-    //lolos pengecekan
-    //generate nama file baru
-    $namaFileBaru = uniqid();
-    $namaFileBaru .= '.';
-    $namaFileBaru .= $ekstensiGambar;
-    move_uploaded_file($tmpName, '../img/' . $namaFileBaru);
-    return $namaFileBaru;
-}
+            //lolos pengecekan
+            //generate nama file baru
+            $namaFileBaru = uniqid();
+            $namaFileBaru .= '.';
+            $namaFileBaru .= $ekstensiGambar;
+            move_uploaded_file($tmpName, '../img/' . $namaFileBaru);
+            return $namaFileBaru;
+        }
 
-function test()
-{
-?>
+        function test()
+        {
+            ?>
     <script>
         alert("Sampai disini")
     </script>
 <?php
-}
+        }
 
-function completeMessage()
-{
+        function completeMessage()
+        {
 ?>
     <script>
         alert("Berhasil")
     </script>
 <?php
-}
+        }
 
-function failedMessage()
-{
+        function failedMessage()
+        {
 ?>
     <script>
         alert("Berhasil")
     </script>
 <?php
-}
+        }
 
 
-function qtest()
-{
-    global $conn;
-    mysqli_query(
-        $conn,
-        "INSERT INTO `pengajuan` 
+        function qtest()
+        {
+            global $conn;
+            mysqli_query(
+                $conn,
+                "INSERT INTO `pengajuan` 
     (`id_pengajuan`, 
     `nif`, 
     `keperluan_mhs`, 
@@ -164,5 +180,5 @@ function qtest()
     '2020-12-12', 
     '0', 
     NULL)"
-    );
-}
+            );
+        }
