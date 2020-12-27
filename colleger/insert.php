@@ -64,17 +64,18 @@ if ($_GET['act'] == 'add') {
         <td width=30%><label>Attachment</label></td>  
         <td width=70%>$row[doc]</td>  
     </tr>";
-  submissionTable("0420206");
+  // submissionTable($_SESSION["nif"]);
   return;
 } elseif ($_GET['act'] == 'send') {
   mysqli_query($conn, "UPDATE pengajuan SET status = '1' WHERE id_pengajuan = '$_POST[sub_id]'");
-  submissionTable("0420206");
+  submissionTable($_SESSION["nif"]);
 } elseif ($_GET['act'] == 'upPass') {
   $newPass = $_POST["pass1"];
   $newPass = password_hash($newPass, PASSWORD_DEFAULT);
   mysqli_query($conn, "UPDATE mahasiswa SET status = '1', password_mhs = '$newPass' WHERE nif = '$_SESSION[nif]'");
 } else {
   mysqli_query($conn, "DELETE FROM pengajuan WHERE id_pengajuan = '$_POST[sub_id]'");
+  submissionTable($_SESSION["nif"]);
 }
 
 // 
