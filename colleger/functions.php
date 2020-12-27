@@ -3,7 +3,13 @@ include "config.php";
 function submissionTable($id)
 {
     global $conn;
-    $result = mysqli_query($conn, "SELECT keperluan.nama_keperluan, pengajuan.status, pengajuan.id_pengajuan FROM pengajuan JOIN keperluan ON keperluan.id_keperluan = pengajuan.keperluan_mhs WHERE nif = '$id' GROUP BY pengajuan.id_pengajuan ORDER BY pengajuan.tgl DESC ");
+    $result = mysqli_query($conn, "SELECT keperluan.nama_keperluan, pengajuan.status, pengajuan.id_pengajuan 
+    FROM pengajuan JOIN keperluan 
+    ON keperluan.id_keperluan = pengajuan.keperluan_mhs 
+    WHERE nif = '$id' 
+    GROUP BY pengajuan.id_pengajuan 
+    ORDER BY pengajuan.tgl DESC ");
+
     $no = 1;
 
     // var_dump($result);

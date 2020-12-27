@@ -65,7 +65,7 @@ session_start();
                                                 </div>
                                                 <div class="col-md-18">
                                                     <label>Value:</label>
-                                                    <input type="text" name="value" id="form_value" placeholder="Money Value" />
+                                                    <input type="text" name="value" id="form_value" autocomplete="false" placeholder="Money Value" />
                                                 </div>
                                                 <div>
                                                     <input type="submit" value="SUBMIT" name="add" id="add">
