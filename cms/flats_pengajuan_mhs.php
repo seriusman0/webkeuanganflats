@@ -8,7 +8,7 @@ if ($_GET['aksi'] == '') {
         <div class="panel panel-default">
             <div class="panel-heading">
                 <?php if ($_SESSION['level'] == '0' || $_SESSION['level'] == '1' || $_SESSION['level'] == '3') { ?>
-                    <a class='btn btn-primary' href='index.php?page=pemasukkan&aksi=tambah'><i class='fa fa-plus'></i> Tambah Pemasukkan</a>
+                    <a class='btn btn-primary' href='index.php?page=pengajuanmhs&aksi=tambah'><i class='fa fa-plus'></i> Tambah Pemasukkan</a>
                     <a class='btn btn-success' href='#.php'><i class='fa fa-file'></i> Export ke Excel</a>
                 <?php } ?>
             </div>
@@ -21,7 +21,6 @@ if ($_GET['aksi'] == '') {
                             <th>Nama</th>
                             <th style='width:10px' class='text-right'>Angkatan</th>
                             <th>Kampus</th>
-                            <th>Tahun Ajaran</th>
                             <th>Keperluan</th>
                             <th>Nominal</th>
                             <th>Status</th>
@@ -32,7 +31,7 @@ if ($_GET['aksi'] == '') {
                     </thead>
                     <tbody>
                         <?php
-                        $pengeluaran = mysqli_query(
+                        $pengajuan = mysqli_query(
                             $conn,
                             "SELECT 
                                 pengajuan.id_pengajuan, 
@@ -62,11 +61,11 @@ if ($_GET['aksi'] == '') {
                                     <td>$i[nama_mhs]</td>
                                     <td align=center>$i[angkatan]</td>
                                     <td>$i[nama_kampus]</td>
-                                    <td>$i[ta] $semPeriod</td>
+                                    
                                     <td>$i[nama_keperluan]  <b><i>$i[other]</i></b></td>
                                     <td>" . rupiah($i['nominal']) . "</td>
                                     <td>$i[status]</td>
-                                    <td>$i[tgl]</td>";
+                                    <td>" . tgl_indo($i['tgl']) . "</td>";
                             echo "<td style='width:80px' class='text-right'>
                                                   <a class='btn' href='index.php?page=pengajuan&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
                                                   <a class='btn' href='index.php?page=pengajuan&aksi=hapus&id=$i[id_pengajuan]' title='Hapus pengajuan ini' onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\" ><i class='fa fa-trash-o'></i></a>";

@@ -64,10 +64,15 @@ if ($_GET['aksi'] == '') {
                         window.location='index.php?page=gembala'</script>";
         } else {
 
-            $password = password_hash($_POST['password_gembala'], PASSWORD_DEFAULT);
-
+            // $password = password_hash($_POST['password_gembala'], PASSWORD_DEFAULT);
+            $password = "1111111111";
             mysqli_query($conn, "INSERT INTO gembala VALUES 
-                    ('$_POST[nig]', '$_POST[nama_gembala]', '$_POST[contact_gembala]', '$_POST[token_gembala]', '$_POST[username_gembala]', '$password')");
+                    ('$_POST[nig]', 
+                    '$_POST[nama_gembala]', 
+                    '$_POST[contact_gembala]', 
+                    '$_POST[token_gembala]', 
+                    '$_POST[username_gembala]', 
+                    '$password')");
             echo "<script>window.alert('Sukses Menambahkan Gembala.');
                         window.location='index.php?page=gembala'</script>";
         }
@@ -84,7 +89,7 @@ if ($_GET['aksi'] == '') {
                     <div class="form-group">
                         <label class="col-lg-2 control-label">NIG</label>
                         <div class="col-lg-4">
-                            <input type="text" name="nig" max="10" placeholder="nig maks 7 character" autofocus class="bg-focus form-control" data-required="true">
+                            <input type="text" name="nig" max="10" placeholder="nig maks 10 character" autofocus class="bg-focus form-control" data-required="true">
                         </div>
                     </div>
 

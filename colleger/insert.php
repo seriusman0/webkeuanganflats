@@ -22,7 +22,7 @@ if ($_GET['act'] == 'add') {
     '$_POST[necessity]', 
     '$_POST[description]',
     '$_POST[value]', 
-    '2020-12-12', 
+    '$sDate', 
     '0', 
     NULL
     )"
