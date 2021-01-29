@@ -24,7 +24,7 @@ if ($_GET['aksi'] == '') {
                     </thead>
                     <tbody>
                         <?php
-                        $mahasiswa = mysqli_query($conn, "SELECT mahasiswa.nama_mhs, mahasiswa.angkatan, kampus.nama_kampus, mahasiswa.ukt, gembala.nama_gembala 
+                        $mahasiswa = mysqli_query($conn, "SELECT mahasiswa.nif, mahasiswa.nama_mhs, mahasiswa.angkatan, kampus.nama_kampus, mahasiswa.ukt, gembala.nama_gembala 
                         FROM mahasiswa, kampus, gembala 
                         WHERE mahasiswa.kampus = kampus.npsn && mahasiswa.gembala_mhs = gembala.nig 
                         ORDER BY mahasiswa.angkatan DESC");
@@ -59,20 +59,26 @@ if ($_GET['aksi'] == '') {
     echo "<script>window.alert('Data User Berhasil Di Hapus.');
                                 window.location='index.php?page=mahasiswa'</script>";
 } elseif ($_GET['aksi'] == 'tambah') {
-
     if (isset($_POST['simpan'])) {
-
         //cek apakah ada yang sama
         $ceknif    = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nif = '$_POST[nif]'"));
         if ($ceknif > 0) {
             echo "<script>window.alert('NIF yang digunakan sudah ada.');
                         window.location='index.php?page=mahasiswa'</script>";
         } else {
-
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
             mysqli_query($conn, "INSERT INTO mahasiswa VALUES 
-                    ('$_POST[nif]', '$_POST[nama_lengkap]', '$_POST[angkatan]', '$_POST[kampus]', '$_POST[username]', '$password', '','$_POST[gembala]','$_POST[repo_mhs]')");
+                    ('$_POST[nif]', 
+                    '$_POST[nama_lengkap]', 
+                    '$_POST[angkatan]', 
+                    '$_POST[kampus]', 
+                    '$_POST[username]', 
+                    '$password',
+                    '0',
+                    '$_POST[gembala]',
+                    '$_POST[repo_mhs]',
+                    '$_POST[ukt]',
+                    '$_POST[jalur]')");
             echo "<script>window.alert('Sukses Menambahkan Mahasiswa.');
                         window.location='index.php?page=mahasiswa'</script>";
         }
@@ -173,6 +179,23 @@ if ($_GET['aksi'] == '') {
                     </div>
 
                     <div class="form-group">
+                        <label class="col-lg-2 control-label">UKT</label>
+                        <div class="col-lg-4">
+                            <input type="text" name="ukt" placeholder="" class="bg-focus form-control" data-required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Jalur</label>
+                        <div class="col-lg-4">
+                            <select name="jalur" class="form-control">
+                                <option value="1">SBMPTN</option>
+                                <option value="0">MANDIRI</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <div class="col-lg-9 pull-right">
                             <button type="submit" name='simpan' class="btn btn-info">Simpan Data</button>
                             <button type="reset" class="btn btn-default">Reset</button>
@@ -185,9 +208,8 @@ if ($_GET['aksi'] == '') {
 
 <?php
 } elseif ($_GET['aksi'] == 'edit') {
-    $e = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nif = '$_GET[id]'"));
+    $e = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mahasiswa WHERE mahasiswa.nif = '$_GET[id]'"));
 
-    //ambil nama kampus
     if (isset($_POST['update'])) {
         if ($_POST['password'] != '') {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -198,7 +220,9 @@ if ($_GET['aksi'] == '') {
                                                                            username_mhs      = '$_POST[username]',
                                                                            password_mhs      = '$password',
                                                                            gembala_mhs      = '$_POST[gembala]',
-                                                                           repo      = '$_POST[repo_mhs]'
+                                                                           repo_mhs      = '$_POST[repo_mhs]',
+                                                                           ukt = '$_POST[ukt]',
+                                                                           jalur = '$_POST[jalur]'
                                                                            WHERE nif = '$_GET[id]'");
             // echo "<script>window.alert('Password Di update.');</script>";
         } else {
@@ -206,9 +230,11 @@ if ($_GET['aksi'] == '') {
                                                                            nama_mhs   = '$_POST[nama_lengkap]',
                                                                            angkatan   = '$_POST[angkatan]',
                                                                            kampus      = '$_POST[kampus]',
-                                                                           username_mhs      = '$_POST[username]',
-                                                                           gembala_mhs      = '$_POST[gembala]',
-                                                                           repo      = '$_POST[repo_mhs]'
+                                                                           username_mhs   = '$_POST[username]',
+                                                                           gembala_mhs    = '$_POST[gembala]',
+                                                                           repo_mhs    = '$_POST[repo_mhs]',
+                                                                           ukt = '$_POST[ukt]',
+                                                                           jalur = '$_POST[jalur]'
                                                                            WHERE nif = '$_GET[id]'");
             // echo "<script>window.alert('Password Masih tetap sama.');</script>";
         }
@@ -307,6 +333,29 @@ if ($_GET['aksi'] == '') {
                         <label class="col-lg-2 control-label">Repository</label>
                         <div class="col-lg-4">
                             <input type="text" name="repo_mhs" value="<?= $e['repo'] ?>" class="bg-focus form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">UKT</label>
+                        <div class="col-lg-4">
+                            <input type="text" name="ukt" placeholder="" value="<?= $e['ukt'] ?>" class="bg-focus form-control" data-required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Jalur</label>
+                        <div class="col-lg-4">
+                            <select name="jalur" class="form-control">
+                                <?php
+                                $cetak = "";
+                                if ($e['jalur'] == '1') $cetak = "SBMPTN";
+                                else $cetak = "MANDIRI";
+                                ?>
+                                <option value="<?= $e['jalur'] ?>"><?= $cetak ?></option>
+                                <option value="1">SBMPTN</option>
+                                <option value="0">MANDIRI</option>
+                            </select>
                         </div>
                     </div>
 
