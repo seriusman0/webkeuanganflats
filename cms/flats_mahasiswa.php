@@ -13,30 +13,31 @@ if ($_GET['aksi'] == '') {
                 <table class="table table-striped table-bordered table-hover dataTables-example">
                     <thead class='alert-info'>
                         <tr>
-                            <th>NIF</th>
+                            <th>No</th>
                             <th>Nama Lengkap</th>
                             <th>Angkatan</th>
                             <th>Kampus</th>
-                            <th>Username</th>
+                            <th>UKT</th>
                             <th>Gembala</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $mahasiswa = mysqli_query($conn, "SELECT * FROM mahasiswa ORDER BY angkatan DESC");
+                        $mahasiswa = mysqli_query($conn, "SELECT mahasiswa.nama_mhs, mahasiswa.angkatan, kampus.nama_kampus, mahasiswa.ukt, gembala.nama_gembala 
+                        FROM mahasiswa, kampus, gembala 
+                        WHERE mahasiswa.kampus = kampus.npsn && mahasiswa.gembala_mhs = gembala.nig 
+                        ORDER BY mahasiswa.angkatan DESC");
 
                         $no = 1;
                         while ($i = mysqli_fetch_array($mahasiswa)) {
-                            $qkampus = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM kampus WHERE npsn = '$i[kampus]'"));
-                            $qgembala = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM gembala WHERE nig = '$i[gembala_mhs]'"));
                             echo "<tr class='gradeX'>
                                     <td width=7% align='center'>$no</td>
                                     <td width=20%>$i[nama_mhs]</td>
                                     <td width=7% align=center>$i[angkatan]</td>
-                                    <td>$qkampus[nama_kampus]</td>
-                                    <td>$i[username_mhs]</td>
-                                    <td>$qgembala[nama_gembala]</td>";
+                                    <td>$i[nama_kampus]</td>
+                                    <td>" . rupiah($i['ukt']) . "</td>
+                                    <td>$i[nama_gembala]</td>";
                             echo "<td style='width:130px' class='text-right'><a class='btn' href='index.php?page=mahasiswa&aksi=edit&id=$i[nif]'><i class='fa fa-pencil-square-o'></i></a>
                                                   <a class='btn' href='index.php?page=mahasiswa&aksi=hapus&id=$i[nif]'  onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\"  title='Hapus Mahasiswa ini'><i class='fa fa-trash-o'></i></a>
                                                   <a class='btn' href='#' title='Lihat Data Keuangan Mahasiswa Ini'><i class='fa fa-user'></i></a>";
@@ -61,7 +62,7 @@ if ($_GET['aksi'] == '') {
 
     if (isset($_POST['simpan'])) {
 
-        //cek apakah adayan yang sama
+        //cek apakah ada yang sama
         $ceknif    = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nif = '$_POST[nif]'"));
         if ($ceknif > 0) {
             echo "<script>window.alert('NIF yang digunakan sudah ada.');

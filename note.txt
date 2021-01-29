@@ -1,0 +1,2 @@
+Gembala hanya bisa mengisi Comment dan verifikasi
+comment gembala hanya bisa dilihat oleh biro
