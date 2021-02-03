@@ -1,3 +1,8 @@
+<?php
+//cek login
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -84,7 +89,7 @@
             <p class="lead">
               Selamat pagi saudara saudari. Tuhan Yesus Memberkati
             </p>
-            <a class="btn btn--primary type--uppercase" href="flats_submission.php">
+            <a class="btn btn--primary type--uppercase" href="index.php?page=submission">
               <span class="btn__text">
                 Submission
               </span>

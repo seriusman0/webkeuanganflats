@@ -1,10 +1,10 @@
 <?php
 if ($_GET['page'] == '') {
     include "flats_home.php";
-} elseif ($_GET['page'] == 'pemasukkan') {
-    include "flats_pemasukkan.php";
-} elseif ($_GET['page'] == 'pengeluaran') {
-    include "flats_pengeluaran.php";
+} elseif ($_GET['page'] == 'submission') {
+    include "flats_submission.php";
+} elseif ($_GET['page'] == 'form_submission') {
+    include "form_pengajuan.php";
 } elseif ($_GET['page'] == 'laporan') {
     include "flats_laporan.php";
 } elseif ($_GET['page'] == 'laporan') {

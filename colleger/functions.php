@@ -3,40 +3,39 @@ include "config.php";
 function submissionTable($id)
 {
     global $conn;
-    $result = mysqli_query($conn, "SELECT keperluan.nama_keperluan, pengajuan.status, pengajuan.id_pengajuan 
-    FROM pengajuan JOIN keperluan 
-    ON keperluan.id_keperluan = pengajuan.keperluan_mhs 
-    WHERE nif = '$id' 
-    GROUP BY pengajuan.id_pengajuan 
-    ORDER BY pengajuan.tgl DESC ");
+    $result = mysqli_query($conn, "SELECT pengajuan.subject, pengajuan.status 
+    FROM pengajuan, detail_pengajuan, sub_detail_pengajuan
+    WHERE pengajuan.id_pengajuan = detail_pengajuan.fid_pengajuan 
+    AND detail_pengajuan.id_detail_pengajuan = sub_detail_pengajuan.fid_detail_pengajuan
+    ");
 
     $no = 1;
 ?>
     <div id="form_table">
         <table class="border--round table--alternate-row">
             <thead>
-                <tr>
+                <tr align="center">
                     <th>No</th>
-                    <th>Necessity</th>
+                    <th>Subject</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-
                 <?php
                 // var_dump($result);
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>
-                        <td>$no</td>
-                        <td>$row[nama_keperluan]</td>
+                        <td align='center'>$no</td>
+                        <td>$row[subject]</td>
                         <td>" . sub_status($row['status']) . "</td>
-                        <td>
-                            <div><input type='button' name='delete' value='Delete' id='$row[id_pengajuan]' class='btn btn--primary delete_sub' /></div>
-                            <div><input type='button' name='view' value='View' id='$row[id_pengajuan]' class='btn btn--primary view_sub' /></div>
-            ";
+                        <td align='center'>
+                        <a href='#' class='btn'>Hapus</a>
+                        ";
                     if ($row['status'] == 0) {
-                        echo "<div><input type='button' name='send' value='Send' id='$row[id_pengajuan]' class='btn btn--primary send_sub' /></div>";
+                        echo "<a href='#'' class='btn'>Edit</a>
+                            <a href='#' class='btn'>Send</a>
+                            ";
                     }
                     echo "</td>
                                 </tr>";
@@ -181,4 +180,13 @@ function submissionTable($id)
     '0', 
     NULL)"
             );
+        }
+
+
+        function cekLogin()
+        {
+            if ($_SESSION['login'] !== true) {
+                header('Location:index.php');
+                exit;
+            }
         }

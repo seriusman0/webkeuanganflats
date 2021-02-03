@@ -3,7 +3,10 @@ if (isset($_POST['login'])) {
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    $r = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE username_mhs = '$user'");
+    $r = mysqli_query($conn, "SELECT *, kampus.nama_kampus
+    FROM mahasiswa, kampus
+
+     WHERE username_mhs = '$user' && mahasiswa.kampus = kampus.npsn");
 
     var_dump($_POST['username']);
     var_dump($r);
@@ -12,10 +15,15 @@ if (isset($_POST['login'])) {
         $row = mysqli_fetch_assoc($r);
         if (password_verify($pass, $row["password_mhs"])) {
             $_SESSION["login"] = true;
-            $_SESSION["name"] = $row["nama_mhs"];
             $_SESSION["nif"] = $row["nif"];
+            $_SESSION["name"] = $row["nama_mhs"];
             $_SESSION["status"] = $row["status"];
-            $_SESSION["repo"] = $row["repo"];
+            $_SESSION["repo"] = $row["repo_mhs"];
+            $_SESSION["angkatan"] = $row["angkatan"];
+            $_SESSION["kampus"] = $row["nama_kampus"];
+            $_SESSION["password"] = $row["password_mhs"];
+            $_SESSION["ukt"] = $row["ukt"];
+            $_SESSION["jalur"] = $row["jalur"];
         }
         header('location:index.php');
     } else {
