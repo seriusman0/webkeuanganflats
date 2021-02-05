@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
             <table class="border--round table--alternate-column">
 
                 <tbody>
-                    <form action="" method="POST">
+                    <form action="test4.php" method="POST">
                         <tr>
                             <td>Nama</td>
                             <td width=40% colspan="3">
@@ -205,7 +205,7 @@ if (isset($_POST['submit'])) {
                     <tr>
                         <td>6</td>
                         <td><input type="date" name="tgl6" id="tgl6"></td>
-                        <td><input type="text"></td>
+                        <td><input type="text" name="item6" id="item6"></td>
                         <td><input type="number" name="vP6" id="vP6"></td>
                         <td><input type="number" name="vAcc6" id="vAcc6"></td>
                         <td>
