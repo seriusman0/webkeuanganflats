@@ -89,7 +89,7 @@ if ($_GET['aksi'] == '') {
 } elseif ($_GET['aksi'] == 'tambah') {
     if (isset($_POST['simpan'])) {
 
-        mysqli_query($conn, "INSERT INTO pengeluaran VALUES('','$_POST[nama_mhs]','$_POST[semester]','$_POST[ta]','$_POST[keperluan]','$_POST[other]','$_POST[nominal]','$_POST[tgl_tr]','$_SESSION[id]')");
+        mysqli_query($conn, "INSERT INTO pengeluaran VALUES(NULL,'$_POST[nama_mhs]','$_POST[semester]','$_POST[ta]','$_POST[keperluan]','$_POST[other]','$_POST[nominal]','$_POST[tgl_tr]','$_SESSION[id]')");
 
         echo "<script>window.alert('Sukses Menambahkan Data Pengeluaran .');
                 window.location='index.php?page=pengeluaran&aksi=tambah'</script>";
