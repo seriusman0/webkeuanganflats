@@ -9,20 +9,22 @@ if (isset($_POST["submit"])) {
     $vAcc = array($_POST["vAcc1"], $_POST["vAcc2"], $_POST["vAcc3"], $_POST["vAcc4"], $_POST["vAcc5"], $_POST["vAcc6"], $_POST["vAcc7"], $_POST["vAcc8"], $_POST["vAcc9"], $_POST["vAcc10"]);
     $status = array($_POST["status1"], $_POST["status2"], $_POST["status3"], $_POST["status4"], $_POST["status5"], $_POST["status6"], $_POST["status7"], $_POST["status8"], $_POST["status9"], $_POST["status10"]);
 
+    $count = 0;
     $lastId = 2;
 
-    $count = 0;
     while ($count < 10) {
         if ($item[$count] == '') {
             break;
         } else {
-            echo "<script>alert('Masuk Ke Perulangan')</script>";
             $row = $count + 1;
             mysqli_query($conn, "INSERT INTO detail_pengajuan values (NULL,'$lastId','$row')");
-            $lastIdDetailPengajuan = mysqli_insert_id();
+            $lastIdDetailPengajuan = mysqli_insert_id($conn);
             $updateNow = date('Y-m-d H:i:s');
-            echo "lastIdDetailPengajuan => " . $lastIdDetailPengajuan;
-            mysqli_query($conn, "INSERT INTO `sub_detail_pengajuan` (`id_sub_detail_pengajuan`, `fid_detail_pengajuan`, `tglP`, `itemP`, `valP`, `valAcc`, `status`, `sub_update_at`) VALUES (NULL, '$lastIdDetailPengajuan', '$tgl[$count]', '$item[$count]', '$vP[$count]', '$vAcc[$count]', '1', current_timestamp())");
+            mysqli_query($conn, "INSERT INTO `sub_detail_pengajuan` 
+            (`id_sub_detail_pengajuan`, `fid_detail_pengajuan`, `tglP`, 
+            `itemP`, `valP`, `valAcc`, `status`) 
+            VALUES (NULL, '$lastIdDetailPengajuan', '$tgl[$count]', 
+            '$item[$count]', '$vP[$count]', '$vAcc[$count]', '1')");
             echo "<script>alert('Input Pengajuan Berhasil')</script>";
         }
         $count += 1;
