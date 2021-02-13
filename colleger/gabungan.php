@@ -22,6 +22,7 @@ if (isset($_POST['submit'])) {
 VALUES (NULL, '$nif', '$semester', '$ta', '$nohp', '$tgl_sub', '$rev_1', '$rev_2', '$acc', '$status')";
     if (mysqli_query($conn, $query)) {
         $lastId = mysqli_insert_id($conn);
+        echo "last id = " . $lastId . " . ";
         $note_arr = array($note_c, $note_s, $note_b);
         $count = 0;
         while ($count < count($note_arr)) {
@@ -70,8 +71,8 @@ VALUES (NULL, '$nif', '$semester', '$ta', '$nohp', '$tgl_sub', '$rev_1', '$rev_2
             }
             $idCount += 1;
         }
-        echo "<script>alert('Input Pengajuan Berhasil. Silakan Tunggu Proses Selanjutnya  . . . .');
-        window.location('index.php?page=submission');
+        echo "<script>alert('Input Pengajuan Berhassil. Silakan Tunggu Proses Selanjutnya  . . . .');
+            
         </script>";
     } else {
         echo "Gagal Input Pengajuan";
