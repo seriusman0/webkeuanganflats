@@ -57,12 +57,42 @@
   <div class="main-container">
     <section class="cover height-100 text-center imagebg parallax" data-overlay="1">
       <div class="background-image-holder">
-        <img alt="background" src="img/landing-13.jpg" />
+        <img alt="background" src="img/tourism-4.jpg" />
       </div>
       <div class="container pos-vertical-center">
         <div class="row">
           <div class="col-md-12">
             <h1>Welcome To Home Page FLATS. God Bless You.</h1>
+
+
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="boxed boxed--border col-md-6  bg--secondary boxed--lg box-shadow">
+                    <h5>Keperluan Anda . . .</h5>
+                    <p>
+                      Pilih salah satu tombol di bawah . . .
+                    </p>
+                    <a class="btn btn--primary" href="index.php?page=submission">
+                      <span class="btn__text">
+                        SUBMISSION
+                      </span>
+                    </a>
+                    <a class="btn btn--primary" href="#">
+                      <span class="btn__text">
+                        UPDATE IPk/s
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!--end of row-->
+            </div>
+            <!--end of container-->
+
+
+
             <div class="modal-instance block">
               <div class="video-play-icon modal-trigger"></div>
               <div class="modal-container">
@@ -89,11 +119,7 @@
             <p class="lead">
               Selamat pagi saudara saudari. Tuhan Yesus Memberkati
             </p>
-            <a class="btn btn--primary type--uppercase" href="index.php?page=submission">
-              <span class="btn__text">
-                Submission
-              </span>
-            </a>
+
           </div>
         </div>
         <!--end of row-->
@@ -102,7 +128,7 @@
     </section>
     <section class="height-80 parallax imagebg">
       <div class="background-image-holder">
-        <img alt="background" src="img/landing-14.jpg" />
+        <img alt="background" src="img/flats_landing.jpg" />
       </div>
     </section>
 

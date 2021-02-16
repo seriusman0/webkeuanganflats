@@ -190,3 +190,12 @@ function submissionTable($id)
                 exit;
             }
         }
+
+        function isEmpty($item)
+        {
+            if ($item == '') {
+                return null;
+            } else {
+                return $item;
+            }
+        }

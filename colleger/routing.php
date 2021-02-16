@@ -4,7 +4,7 @@ if ($_GET['page'] == '') {
 } elseif ($_GET['page'] == 'submission') {
     include "flats_submission.php";
 } elseif ($_GET['page'] == 'form_submission') {
-    include "form_pengajuan.php";
+    include "form_pengajuan_mhs.php";
 } elseif ($_GET['page'] == 'laporan') {
     include "flats_laporan.php";
 } elseif ($_GET['page'] == 'laporan') {
