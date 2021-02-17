@@ -79,7 +79,7 @@
                         SUBMISSION
                       </span>
                     </a>
-                    <a class="btn btn--primary" href="#">
+                    <a class="btn btn--primary" href="index.php?page=ip">
                       <span class="btn__text">
                         UPDATE IPk/s
                       </span>

@@ -5,8 +5,8 @@ if ($_GET['page'] == '') {
     include "flats_submission.php";
 } elseif ($_GET['page'] == 'form_submission') {
     include "form_pengajuan_mhs.php";
-} elseif ($_GET['page'] == 'laporan') {
-    include "flats_laporan.php";
+} elseif ($_GET['page'] == 'ip') {
+    include "flats_ip.php";
 } elseif ($_GET['page'] == 'laporan') {
     include "laporan.php";
 } elseif ($_GET['page'] == 'mahasiswa') {

@@ -194,7 +194,7 @@ function submissionTable($id)
         function isEmpty($item)
         {
             if ($item == '') {
-                return null;
+                return NULL;
             } else {
                 return $item;
             }
