@@ -7,6 +7,8 @@ if ($_GET['page'] == '') {
     include "form_pengajuan_mhs.php";
 } elseif ($_GET['page'] == 'ip') {
     include "flats_ip.php";
+} elseif ($_GET['page'] == 'view') {
+    include "view_submission.php";
 } elseif ($_GET['page'] == 'laporan') {
     include "laporan.php";
 } elseif ($_GET['page'] == 'mahasiswa') {

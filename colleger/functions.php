@@ -3,7 +3,7 @@ include "config.php";
 function submissionTable($id)
 {
     global $conn;
-    $result = mysqli_query($conn, "SELECT pengajuan.subject, pengajuan.status 
+    $result = mysqli_query($conn, "SELECT pengajuan.id_pengajuan, pengajuan.subject, pengajuan.status 
     FROM pengajuan, detail_pengajuan, sub_detail_pengajuan
     WHERE pengajuan.id_pengajuan = detail_pengajuan.fid_pengajuan 
     AND detail_pengajuan.id_detail_pengajuan = sub_detail_pengajuan.fid_detail_pengajuan GROUP BY pengajuan.subject
@@ -12,7 +12,7 @@ function submissionTable($id)
     $no = 1;
 ?>
     <div id="form_table">
-        <table class="border--round table--alternate-row">
+        <table class="border--round table--alternate-row" border="1">
             <thead>
                 <tr align="center">
                     <th>No</th>
@@ -30,11 +30,13 @@ function submissionTable($id)
                         <td>$row[subject]</td>
                         <td>" . sub_status($row['status']) . "</td>
                         <td align='center'>
+                        <a href='index.php?page=view&id=" . $row['id_pengajuan'] . "'class='btn'>View</a>
                         <a href='#' class='btn'>Hapus</a>
                         ";
                     if ($row['status'] == 0) {
                         echo "<a href='#'' class='btn'>Edit</a>
                             <a href='#' class='btn'>Send</a>
+                            
                             ";
                     }
                     echo "</td>
@@ -193,9 +195,60 @@ function submissionTable($id)
 
         function isEmpty($item)
         {
-            if ($item == '') {
-                return NULL;
-            } else {
+            if ($item != '') {
                 return $item;
+            } else {
+                return 0;
             }
+        }
+
+        function isDateEmpty($tanggal)
+        {
+            if ($tanggal == '') {
+                return '0000-00-00';
+            } else {
+                return $tanggal;
+            }
+        }
+
+        function note($idPengajuan, $as)
+        {
+            global $conn;
+            $query = "SELECT * FROM `note` 
+            WHERE `note_fid_pengajuan` = '152' 
+            AND `note_by` = '$as'";
+            $r = mysqli_fetch_array(mysqli_query($conn, $query));
+            echo $r['note_fill'];
+        }
+
+        function item($idPengajuan, $row)
+        {
+            global $conn;
+            $id = "SELECT detail_pengajuan.id_detail_pengajuan FROM detail_pengajuan WHERE detail_pengajuan.fid_pengajuan='$idPengajuan' AND detail_pengajuan.row='$row'";
+            if ($idItem = mysqli_fetch_array(mysqli_query($conn, $id))) {
+                $idItem2 = "SELECT * FROM sub_detail_pengajuan WHERE sub_detail_pengajuan.fid_detail_pengajuan = '$idItem[id_detail_pengajuan]'";
+                $result = mysqli_fetch_array(mysqli_query($conn, $idItem2));
+                return $result;
+            }
+        }
+
+        function checkStat($status)
+        {
+            if ($status == '1') {
+                echo "checked";
+            }
+        }
+
+        function rupiah($angka)
+        {
+            $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+            return $hasil_rupiah;
+        }
+
+        function tgl_indo($tgl)
+        {
+            $tanggal = substr($tgl, 8, 2);
+            $bulan = substr($tgl, 5, 2);
+            $tahun = substr($tgl, 0, 4);
+            return $tanggal . '-' . $bulan . '-' . $tahun;
         }
