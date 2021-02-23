@@ -1,5 +1,6 @@
 <?php
-
+include "functions.php";
+include "config.php";
 $idPengajuan = $_GET['id'];
 
 $query = "SELECT * FROM pengajuan WHERE pengajuan.id_pengajuan = $idPengajuan";

@@ -92,8 +92,8 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body class="container">
-    <?php if ($_GET['act'] == '') { ?>
-        <div class="container boxed boxed--border"></div>
+    <?php
+    if ($_GET['act'] == '') { ?>
         <div class="container boxed boxed--border">
             <img src="img/flats_cop.png" alt="">
             <div class="boxed boxed--border">
@@ -116,10 +116,45 @@ if (isset($_POST['submit'])) {
                                     <input type="text" name="kampus" id="kampus" value="<?= $_SESSION['angkatan'] ?>" disabled>
                                 </td>
                                 <td>/</td>
-                                <td><input type="number" name="semester" min="1" max="14" placeholder="semester" id="semester" required></td>
+                                <td>
+                                    <div class="input-select">
+                                        <select name="semester" id="semester" required oninvalid="this.setCustomValidity('Jangan Lupa isi Semester')">
+                                            <option selected="" value="">Semester</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                        </select>
+                                    </div>
+                                </td>
                                 <td>Tahun Ajaran</td>
                                 <td colspan="3">
-                                    <input type="text" min="2015" max="2050" name="ta" id="ta" required oninvalid="this.setCustomValidity('Jangan Lupa isi Tahun Ajaran')" oninput="setCustomValidity('')">
+                                    <!-- <input type="text" min="2015" max="2050" name="ta" id="ta" required oninvalid="this.setCustomValidity('Jangan Lupa isi Tahun Ajaran')" oninput="setCustomValidity('')"> -->
+                                    <div class="input-select">
+                                        <select name="ta" id="ta" required oninvalid="this.setCustomValidity('Jangan Lupa isi Tahun Ajaran')">
+                                            <option selected="" value="">Tahun Pengajuan</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                            <option value="2029">2029</option>
+                                            <option value="2030">2030</option>
+                                        </select>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>

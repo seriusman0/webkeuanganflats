@@ -57,7 +57,7 @@ function submissionTable($id)
                         break;
                     }
                 case 1: {
-                        return "Not Verified";
+                        return "Not Verified by Shepherd";
                         break;
                     }
                 case 2: {
@@ -87,49 +87,49 @@ function submissionTable($id)
         {
         }
 
-        function upload()
-        {
+        // function upload()
+        // {
 
-            $namaFile = $_FILES['gambar']['name'];
-            $ukuranFile = $_FILES['gambar']['size'];
-            $error = $_FILES['gambar']['error'];
-            $tmpName = $_FILES['gambar']['tmp_name'];
+        //     $namaFile = $_FILES['gambar']['name'];
+        //     $ukuranFile = $_FILES['gambar']['size'];
+        //     $error = $_FILES['gambar']['error'];
+        //     $tmpName = $_FILES['gambar']['tmp_name'];
 
-            // cek apakah gambar di upload
-            if ($error === 4) {
-                echo "<script>
-				alert ('Pilih Gambar terlebih dahulu');
-			</script>";
-                return false;
-            }
+        //     // cek apakah gambar di upload
+        //     if ($error === 4) {
+        //         echo "<script>
+        // 		alert ('Pilih Gambar terlebih dahulu');
+        // 	</script>";
+        //         return false;
+        //     }
 
-            //cek apakah yang di upload adalah gambar
-            $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-            $ekstensiGambar = explode('.', $namaFile);
-            $ekstensiGambar = strtolower(end($ekstensiGambar));
-            if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-                echo "<script>
-				alert ('Yang Anda Upload Bukan Gambar');
-			</script>";
-                return false;
-            }
+        //     //cek apakah yang di upload adalah gambar
+        //     $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+        //     $ekstensiGambar = explode('.', $namaFile);
+        //     $ekstensiGambar = strtolower(end($ekstensiGambar));
+        //     if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+        //         echo "<script>
+        // 		alert ('Yang Anda Upload Bukan Gambar');
+        // 	</script>";
+        //         return false;
+        //     }
 
-            //cek jika ukuran terlalu besar 
-            if ($ukuranFile > 3000000) {
-                echo "<script>
-				alert ('Ukuran Gambar telalu Besar');
-			</script>";
-                return false;
-            }
+        //     //cek jika ukuran terlalu besar 
+        //     if ($ukuranFile > 3000000) {
+        //         echo "<script>
+        // 		alert ('Ukuran Gambar telalu Besar');
+        // 	</script>";
+        //         return false;
+        //     }
 
-            //lolos pengecekan
-            //generate nama file baru
-            $namaFileBaru = uniqid();
-            $namaFileBaru .= '.';
-            $namaFileBaru .= $ekstensiGambar;
-            move_uploaded_file($tmpName, '../img/' . $namaFileBaru);
-            return $namaFileBaru;
-        }
+        //     //lolos pengecekan
+        //     //generate nama file baru
+        //     $namaFileBaru = uniqid();
+        //     $namaFileBaru .= '.';
+        //     $namaFileBaru .= $ekstensiGambar;
+        //     move_uploaded_file($tmpName, '../img/' . $namaFileBaru);
+        //     return $namaFileBaru;
+        // }
 
         function test()
         {
@@ -215,7 +215,7 @@ function submissionTable($id)
         {
             global $conn;
             $query = "SELECT * FROM `note` 
-            WHERE `note_fid_pengajuan` = '152' 
+            WHERE `note_fid_pengajuan` = '$idPengajuan' 
             AND `note_by` = '$as'";
             $r = mysqli_fetch_array(mysqli_query($conn, $query));
             echo $r['note_fill'];
@@ -239,16 +239,24 @@ function submissionTable($id)
             }
         }
 
-        function rupiah($angka)
+        function deRupiah($value)
         {
-            $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
-            return $hasil_rupiah;
+            $value = $value;
+            $value_str = preg_replace("/[^0-9]/", "", $value);
+            $value_int = (int) $value_str;
+            return $value_int;
         }
 
-        function tgl_indo($tgl)
-        {
-            $tanggal = substr($tgl, 8, 2);
-            $bulan = substr($tgl, 5, 2);
-            $tahun = substr($tgl, 0, 4);
-            return $tanggal . '-' . $bulan . '-' . $tahun;
-        }
+        // function rupiah($angka)
+        // {
+        //     $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+        //     return $hasil_rupiah;
+        // }
+
+        // function tgl_indo($tgl)
+        // {
+        //     $tanggal = substr($tgl, 8, 2);
+        //     $bulan = substr($tgl, 5, 2);
+        //     $tahun = substr($tgl, 0, 4);
+        //     return $tanggal . '-' . $bulan . '-' . $tahun;
+        // }

@@ -8,8 +8,7 @@ if ($_GET['aksi'] == '') {
         <div class="panel panel-default">
             <div class="panel-heading">
                 <?php if ($_SESSION['level'] == '0' || $_SESSION['level'] == '1' || $_SESSION['level'] == '3') { ?>
-                    <a class='btn btn-primary' href='index.php?page=pengajuanmhs&aksi=tambah'><i class='fa fa-plus'></i> Tambah Pemasukkan</a>
-                    <a class='btn btn-success' href='#.php'><i class='fa fa-file'></i> Export ke Excel</a>
+
                 <?php } ?>
             </div>
 
@@ -21,8 +20,7 @@ if ($_GET['aksi'] == '') {
                             <th>Nama</th>
                             <th style='width:10px' class='text-right'>Angkatan</th>
                             <th>Kampus</th>
-                            <th>Keperluan</th>
-                            <th>Nominal</th>
+                            <th>Subject</th>
                             <th>Status</th>
                             <th>Tanggal</th>
                             <th>Action</th>
@@ -38,16 +36,13 @@ if ($_GET['aksi'] == '') {
                                 mahasiswa.nama_mhs, 
                                 mahasiswa.angkatan, 
                                 kampus.nama_kampus, 
-                                keperluan.nama_keperluan, 
-                                pengajuan.other, pengajuan.nominal,
+                                pengajuan.subject, 
                                 pengajuan.status, 
-                                pengajuan.tgl,
-                                mahasiswa.repo
+                                pengajuan.update_at
                         FROM pengajuan, mahasiswa, kampus, keperluan 
                         WHERE 	pengajuan.nif = mahasiswa.nif && 
-                            pengajuan.keperluan_mhs= keperluan.id_keperluan && 
-                            mahasiswa.kampus = kampus.npsn 
-                    ORDER BY pengajuan.id_pengajuan"
+                            mahasiswa.kampus = kampus.npsn GROUP BY pengajuan.id_pengajuan 
+                    ORDER BY pengajuan.update_at DESC "
                         );
 
                         $no = 1;
@@ -61,14 +56,12 @@ if ($_GET['aksi'] == '') {
                                     <td>$i[nama_mhs]</td>
                                     <td align=center>$i[angkatan]</td>
                                     <td>$i[nama_kampus]</td>
-                                    
-                                    <td>$i[nama_keperluan]  <b><i>$i[other]</i></b></td>
-                                    <td>" . rupiah($i['nominal']) . "</td>
-                                    <td>$i[status]</td>
-                                    <td>" . tgl_indo($i['tgl']) . "</td>";
+                                    <td>$i[subject]</td>
+                                    <td>" . $i['status'] . "</td>
+                                    <td>" . tgl_indo($i['update_at']) . "</td>";
                             echo "<td style='width:80px' class='text-right'>
-                                                  <a class='btn' href='index.php?page=pengajuan&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
-                                                  <a class='btn' href='index.php?page=pengajuan&aksi=hapus&id=$i[id_pengajuan]' title='Hapus pengajuan ini' onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\" ><i class='fa fa-trash-o'></i></a>";
+                                                  <a class='btn' href='index.php?page=pengajuanmhs&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
+                                                  <a class='btn' href='index.php?page=pengajuanmhs&aksi=hapus&id=$i[id_pengajuan]' title='Hapus pengajuan ini' onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\" ><i class='fa fa-trash-o'></i></a>";
                             echo "</td>
                                  </tr>";
                             $no++;
@@ -81,6 +74,155 @@ if ($_GET['aksi'] == '') {
         </div>
     </div>
     <!-- /Basic Data Tables Example -->
+
+    <br>
+    <h4 style='padding-top:15px'>TODAY</h4>
+    <!-- Basic Data Tables Example -->
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?php if ($_SESSION['level'] == '0' || $_SESSION['level'] == '1' || $_SESSION['level'] == '3') { ?>
+                <?php } ?>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead class='alert-info'>
+                        <tr class='gradeX'>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th style='width:10px' class='text-right'>Angkatan</th>
+                            <th>Kampus</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $pengajuan = mysqli_query(
+                            $conn,
+                            "SELECT 
+                                pengajuan.id_pengajuan, 
+                                mahasiswa.nama_mhs, 
+                                mahasiswa.angkatan, 
+                                kampus.nama_kampus, 
+                                pengajuan.subject, 
+                                pengajuan.status, 
+                                pengajuan.update_at
+                        FROM pengajuan, mahasiswa, kampus, keperluan 
+                        WHERE 	pengajuan.nif = mahasiswa.nif && 
+                            mahasiswa.kampus = kampus.npsn GROUP BY pengajuan.id_pengajuan 
+                    ORDER BY pengajuan.update_at DESC "
+                        );
+
+                        $no = 1;
+                        while ($i = mysqli_fetch_array($pengajuan)) {
+                            $semPeriod = "Ganjil";
+                            if ((intval($i['semester'] % 2)) == 0) {
+                                $semPeriod = "Genap";
+                            }
+                            echo "<tr class='gradeX'>
+                                    <td>$no</td>
+                                    <td>$i[nama_mhs]</td>
+                                    <td align=center>$i[angkatan]</td>
+                                    <td>$i[nama_kampus]</td>
+                                    <td>$i[subject]</td>
+                                    <td>" . $i['status'] . "</td>
+                                    <td>" . tgl_indo($i['update_at']) . "</td>";
+                            echo "<td style='width:80px' class='text-right'>
+                                                  <a class='btn' href='index.php?page=pengajuanmhs&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
+                                                  <a class='btn' href='index.php?page=pengajuanmhs&aksi=hapus&id=$i[id_pengajuan]' title='Hapus pengajuan ini' onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\" ><i class='fa fa-trash-o'></i></a>";
+                            echo "</td>
+                                 </tr>";
+                            $no++;
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /Basic Data Tables Example -->
+
+
+    <br>
+    <h4 style='padding-top:15px'>3 Days Ago</h4>
+    <!-- Basic Data Tables Example -->
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?php if ($_SESSION['level'] == '0' || $_SESSION['level'] == '1' || $_SESSION['level'] == '3') { ?>
+                <?php } ?>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead class='alert-info'>
+                        <tr class='gradeX'>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th style='width:10px' class='text-right'>Angkatan</th>
+                            <th>Kampus</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $pengajuan = mysqli_query(
+                            $conn,
+                            "SELECT 
+                                pengajuan.id_pengajuan, 
+                                mahasiswa.nama_mhs, 
+                                mahasiswa.angkatan, 
+                                kampus.nama_kampus, 
+                                pengajuan.subject, 
+                                pengajuan.status, 
+                                pengajuan.update_at
+                        FROM pengajuan, mahasiswa, kampus, keperluan 
+                        WHERE 	pengajuan.nif = mahasiswa.nif && 
+                            mahasiswa.kampus = kampus.npsn GROUP BY pengajuan.id_pengajuan 
+                    ORDER BY pengajuan.update_at DESC "
+                        );
+
+                        $no = 1;
+                        while ($i = mysqli_fetch_array($pengajuan)) {
+                            $semPeriod = "Ganjil";
+                            if ((intval($i['semester'] % 2)) == 0) {
+                                $semPeriod = "Genap";
+                            }
+                            echo "<tr class='gradeX'>
+                                    <td>$no</td>
+                                    <td>$i[nama_mhs]</td>
+                                    <td align=center>$i[angkatan]</td>
+                                    <td>$i[nama_kampus]</td>
+                                    <td>$i[subject]</td>
+                                    <td>" . $i['status'] . "</td>
+                                    <td>" . tgl_indo($i['update_at']) . "</td>";
+                            echo "<td style='width:80px' class='text-right'>
+                                                  <a class='btn' href='index.php?page=pengajuanmhs&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
+                                                  <a class='btn' href='index.php?page=pengajuanmhs&aksi=hapus&id=$i[id_pengajuan]' title='Hapus pengajuan ini' onclick=\"return confirm('Apakah anda Yakin Data ini Dihapus?')\" ><i class='fa fa-trash-o'></i></a>";
+                            echo "</td>
+                                 </tr>";
+                            $no++;
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /Basic Data Tables Example -->
+
+
 <?php
 } elseif ($_GET['aksi'] == 'hapus') {
     mysqli_query($conn, "DELETE FROM pemasukkan where id_pemasukkan='$_GET[id]'");
@@ -118,8 +260,8 @@ if ($_GET['aksi'] == '') {
                     </div>
 
                     <div class="form-group">
-                        <label class="col-lg-2 control-label">Semester</label>
-                        <div class="col-lg-9">
+                        <label class="control-label">Semester</label>
+                        <div class="">
                             <select name='semester' class="form-control" required="true">
                                 <option value=''></option>
                                 <option value='1'>1</option>
@@ -141,8 +283,8 @@ if ($_GET['aksi'] == '') {
                     </div>
 
                     <div class="form-group">
-                        <label class="col-lg-2 control-label">Tahun Ajaran</label>
-                        <div class="col-lg-9">
+                        <label>Tahun Ajaran</label>
+                        <div>
                             <select name='ta' class="form-control">
                                 <option value='2019'>2019</option>
                                 <option value='2020'>2020</option>
@@ -207,141 +349,399 @@ if ($_GET['aksi'] == '') {
     </div>
 <?php
 } elseif ($_GET['aksi'] == 'edit') {
-    $e = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM pemasukkan WHERE id_pemasukkan='$_GET[id]'"));
 
-    if (isset($_POST['simpan'])) {
-        mysqli_query($conn, "UPDATE pemasukkan SET nif       = '$_POST[nama_mhs]',
-                                                            semester    = '$_POST[semester]',
-                                                            ta    = '$_POST[ta]',
-                                                            keperluan    = '$_POST[keperluan]',
-                                                            ket      = '$_POST[other]',
-                                                            nominal         = '$_POST[nominal]',
-                                                            tgl        = '$_POST[tgl_tr]',
-                                                            iBy    = '$_SESSION[id]'
-                                                            WHERE id_pemasukkan ='$_GET[id]'");
+    //ambil data pengajuan
+    $idPengajuan = $_GET['id'];
 
-        echo "<script>window.alert('Sukses Update Data Pemasukkan.');
-                                window.location='index.php?page=pemasukkan'</script>";
+    $query = "SELECT * FROM pengajuan WHERE pengajuan.id_pengajuan = $idPengajuan";
+
+    if ($r = array_filter(mysqli_fetch_array(mysqli_query($conn, $query)))) {
+        $ips = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM ips WHERE ips.nif='$r[nif]'"));
+        $ipk = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM ipk WHERE ipk.nif='$r[nif]'"));
+        $dataMhs = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mahasiswa, kampus
+                    WHERE  mahasiswa.nif = '$r[nif]' and mahasiswa.kampus = kampus.npsn"));
     }
+
 ?>
 
     <h4 style='padding-top:15px'></h4>
     <!-- Basic Data Tables Example -->
     <div class="col-md-12">
+
+    </div>
+
+
+    <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><strong>Edit Data Pemasukkan</strong></div>
+            <div class="panel-heading"><strong>Proses Pengajuan</strong></div>
             <div class="panel-body">
-                <form action='' class="form-horizontal" method="POST" data-validate="parsley" enctype='multipart/form-data'>
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Nama Mahasiswa</label>
-                        <div class="col-lg-9">
-                            <?php
-                            $ambil = mysqli_query($conn, "SELECT * FROM mahasiswa ORDER BY nama_mhs");
-                            $rNamaMhs = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nif='$e[nif]'"));
-                            ?>
-                            <select name='nama_mhs' class="form-control" required="true" autofocus>
-                                <option value='<?= $e["nif"] ?>'><?= $rNamaMhs['nama_mhs']; ?></option>
-                                <?php
-                                while ($r = mysqli_fetch_array($ambil)) {
-                                    echo "<option value=$r[nif]>$r[nama_mhs]</option>";
-                                } ?>
-                            </select>
+                <div align='center'>
+                    <img src="../colleger/img/flats_cop.png" alt="">
+                    <div class="container col-md-12" align="center">
+                        <table width="100%" class="table table-striped table-bordered table-hover dataTables-example">
+                            <th width="20%"></th>
+                            <th width="20%"></th>
+                            <th width="10%"></th>
+                            <th width="10%"></th>
+                            <th width="20%"></th>
+                            <th width="20%"></th>
+                            <!-- <th bgcolor="0000">7</th>
+                            <th bgcolor="0000">8</th>
+                            <th bgcolor="0000">9</th>
+                            <th bgcolor="0000">10</th>
+                            <th bgcolor="0000">11</th>
+                            <th bgcolor="0000">12</th> -->
+                            <tbody>
+                                <font size="10">
+                                    <!-- <form action="" method="POST" aria-readonly="true"> -->
+                                    <tr>
+                                        <td>Nama</td>
+                                        <td>
+                                            <input type="text" value="<?= $dataMhs['nama_mhs'] ?>">
+                                        </td>
+                                        <td></td>
+                                        <td>Kampus</td>
+                                        <td colspan="2">
+                                            <input type="text" value="<?= $dataMhs['nama_kampus'] ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FLATS / Semester</td>
+                                        <td>
+                                            <input type="text" value="<?= $dataMhs['angkatan'] ?>">
+                                        </td>
+                                        <!-- <td>/</td> -->
+                                        <td><input type="number" name="semester" min="1" max="14" placeholder="semester" id="semester" value="<?= $r['semester'] ?>" required></td>
+                                        <td>Tahun Ajaran</td>
+                                        <td colspan="2" width="200%">
+                                            <input type="text" min="2015" max="2050" name="ta" id="ta" value="<?= $r['ta'] ?>" required oninvalid="this.setCustomValidity('Jangan Lupa isi Tahun Ajaran')" oninput="setCustomValidity('')">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>No HP</td>
+                                        <td>
+                                            <input type="text" name="nohp" id="nohp" placeholder="cth 0821xxxxxxxx" value="<?= $r['nohp'] ?>">
+                                        </td>
+                                        <td></td>
+                                        <td>IPS / IPK </td>
+                                        <td>
+                                            <input type="number" width="10px" name="ips" id="ips" value="<?= $ips[$r['semester'] - 1] ?>" max="4">
+                                        </td>
+
+                                        <td>
+                                            <input type="number" name="ipk" id="ipk" value="<?= $ipk[$r['semester'] - 1] ?>" max="4">
+                                        </td>
+                                    </tr>
+                                </font>
+                            </tbody>
+                        </table>
+                        <br>
+
+                        <table width="100%">
+
+                            <tbody>
+                                <tr>
+                                    <td>Catatan Mahasiswa : </td>
+                                    <td>Catatan Gembala : </td>
+                                    <td>Catatan Biro : </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea name="note_c" id="note_c" rows="5" readonly placeholder="Diisi oleh Mahasiswa"><?php note($idPengajuan, 0) ?></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea name="note_s" id="note_s" rows="5" disabled placeholder="Diisi oleh Gembala"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea name="note_b" id="note_b" rows="5" placeholder="Diisi oleh Biro"> <?php note($idPengajuan, 2) ?></textarea>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <table>
+
+                            <tr>
+                                <td colspan="3">Tanggal Pengajuan:</td>
+                                <td colspan="3">Tanggal Revisi Ke-1</td>
+                                <td colspan="3">Tanggal Revisi Ke-2</td>
+                                <td colspan="3">Tanggal Pencairan</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><input type="date" name="tgl_sub" id="tgl_sub" value="<?= $r['tgl_sub'] ?>"></td>
+                                <td colspan="3"><input type="date" name="rev_1" id="rev_1" value="<?= $r['rev_1'] ?>"></td>
+                                <td colspan="3"><input type="date" name="rev_2" id="rev_2" value="<?= $r['rev_2'] ?>"></td>
+                                <td colspan="3"><input type="date" name="acc" id="acc" value="<?= $r['acc'] ?>"></td>
+                            </tr>
+                        </table>
+                        <br>
+
+                        <!-- TABEL PENGAJUAN -->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Pengajuan Biaya Pokok</th>
+                                    <th>Besaran(Rp.)</th>
+                                    <th>Acc Biro(Rp.)</th>
+                                    <th>Biro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <input type="date" name="tgl1" id="tgl1" value="<?= item($idPengajuan, 1)['tglP'] ?>">
+                                    </td>
+                                    <td><input type="text" name="item1" id="item1" value="<?= item($idPengajuan, 1)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP1" id="vP1" value="<?= rupiah(item($idPengajuan, 1)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc1" id="vAcc1" value="<?= item($idPengajuan, 1)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status1" type="checkbox" <?php checkStat(item($idPengajuan, 1, 'status')['status']) ?> name="status1" />
+                                            <label for="status1"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><input type="date" name="tgl2" id="tgl2" value="<?= item($idPengajuan, 2)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item2" id="item2" value="<?= item($idPengajuan, 2)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP2" id="vP2" value="<?= rupiah(item($idPengajuan, 2)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc2" id="vAcc2" value="<?php item($idPengajuan, 2, 'valAcc') ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status2" type="checkbox" <?php checkStat(item($idPengajuan, 2, 'status')['status']) ?> name="status2" />
+                                            <label for="status2"></label>
+                                        </div>
+                                    </td>
+
+                                <tr>
+                                    <td>3</td>
+                                    <td><input type="date" name="tgl3" id="tgl3" value="<?= item($idPengajuan, 3)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item3" id="item3" value="<?= item($idPengajuan, 3)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP3" id="vP3" value="<?= rupiah(item($idPengajuan, 3)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc3" id="vAcc3" value="<?= item($idPengajuan, 3)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status3" type="checkbox" <?php checkStat(item($idPengajuan, 3, 'status')['status']) ?> value="1" name="status3" />
+                                            <label for="status3"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>4</td>
+                                    <td><input type="date" name="tgl4" id="tgl4" value="<?= item($idPengajuan, 4)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item4" id="item4" value="<?= item($idPengajuan, 4)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP4" id="vP4" value="<?= rupiah(item($idPengajuan, 4)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc4" id="vAcc4" value="<?= item($idPengajuan, 4)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status4" type="checkbox" <?php checkStat(item($idPengajuan, 4, 'status')['status']) ?> value="1" name="status4" />
+                                            <label for="status4"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>5</td>
+                                    <td><input type="date" name="tgl5" id="tgl5" value="<?= item($idPengajuan, 5)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item5" id="item5" value="<?= item($idPengajuan, 5)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP5" id="vP5" value="<?= rupiah(item($idPengajuan, 5)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc5" id="vAcc5" value="<?= item($idPengajuan, 5)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status5" type="checkbox" <?php checkStat(item($idPengajuan, 5, 'status')['status']) ?> value="1" name="status5" />
+                                            <label for="status5"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>6</td>
+                                    <td><input type="date" name="tgl6" id="tgl6" value="<?= item($idPengajuan, 6)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item6" id="item6" value="<?= item($idPengajuan, 6)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP6" id="vP6" value="<?= rupiah(item($idPengajuan, 6)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc6" id="vAcc6" value="<?= item($idPengajuan, 6)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status6" type="checkbox" <?php checkStat(item($idPengajuan, 6, 'status')['status']) ?> value="1" name="status6" />
+                                            <label for="status6"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>7</td>
+                                    <td><input type="date" name="tgl7" id="tgl7" value="<?= item($idPengajuan, 7)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item7" id="item7" placeholder="Apresiasi/Depresiasi" class="bg-primary" value="<?= item($idPengajuan, 7)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP7" id="vP7" value="<?= rupiah(item($idPengajuan, 7)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc7" id="vAcc7" value="<?= item($idPengajuan, 6)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status7" type="checkbox" <?php checkStat(item($idPengajuan, 7, 'status')['status']) ?> value="1" name="status7" />
+                                            <label for="status7"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>8</td>
+                                    <td><input type="date" name="tgl8" id="tgl8" value="<?= item($idPengajuan, 8)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item8" id="item8" placeholder="Sanksi Pelanggaran" class="bg-danger" value="<?= item($idPengajuan, 8)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP8" id="vP8" value="<?= rupiah(item($idPengajuan, 8)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc8" id="vAcc8" value="<?= item($idPengajuan, 8)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status8" type="checkbox" <?php checkStat(item($idPengajuan, 8, 'status')['status']) ?> value="1" name="status8" />
+                                            <label for="status8"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>9</td>
+                                    <td><input type="date" name="tgl9" id="tgl9" value="<?= item($idPengajuan, 9)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item9" id="item9" value="<?= item($idPengajuan, 9)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP9" id="vP9" value="<?= rupiah(item($idPengajuan, 9)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc9" id="vAcc9" value="<?= item($idPengajuan, 9)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status9" type="checkbox" <?php checkStat(item($idPengajuan, 9, 'status')['status']) ?> value="1" name="status9" />
+                                            <label for="status9"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>10</td>
+                                    <td><input type="date" name="tgl10" id="tgl10" value="<?= item($idPengajuan, 10)['tglP'] ?>"></td>
+                                    <td><input type="text" name="item10" id="item10" value="<?= item($idPengajuan, 10)['itemP'] ?>"></td>
+                                    <td><input type="text" name="vP10" id="vP10" value="<?= rupiah(item($idPengajuan, 10)['valP']) ?>"></td>
+                                    <td><input type="number" name="vAcc10" id="vAcc10" value="<?= item($idPengajuan, 10)['valAcc'] ?>"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="status10" type="checkbox" <?php checkStat(item($idPengajuan, 10, 'status')['status']) ?> value="1" name="status10" />
+                                            <label for="status10"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3" align="right" class="bg--secondary">TOTAL</td>
+                                    <td><input type="text" id="totalP"></td>
+                                    <td><input type="text" id="totalAcc"></td>
+                                    <td>
+                                        <div class="input-checkbox">
+                                            <input id="checkbox20" type="checkbox" name="agree" />
+                                            <label for="checkbox20"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- TABEL PELANGGARAN -->
+                        <br>
+                        <table class="border--round">
+                            <thead align="center">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Catatan</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td align="center">1</td>
+                                    <td><input type="date" name="tglP1" id="tglP1"></td>
+                                    <td><input type="text" name="itemP1" id="itemP1" value="Pencapaian jurnal semester"></td>
+                                    <td><input type="number" name="valueP1" id="valueP1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td align="center">2</td>
+                                    <td><input type="date" name="tglP2" id="tglP2"></td>
+                                    <td><input type="text" name="itemP2" id="itemP2" value="Kelebihan hari Libur"></td>
+                                    <td><input type="number" name="valueP2" id="valueP2"></td>
+
+                                <tr>
+                                    <td align="center">3</td>
+                                    <td><input type="date" name="tglP3" id="tglP3"></td>
+                                    <td><input type="text" name="itemP3" id="itemP3"></td>
+                                    <td><input type="number" name="valueP3" id="valueP3"></td>
+
+                                </tr>
+                                <tr>
+                                    <td align="center">4</td>
+                                    <td><input type="date" name="tglP4" id="tglP4"></td>
+                                    <td><input type="text" name="itemP4" id="itemP4"></td>
+                                    <td><input type="number" name="valueP4" id="valueP4"></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table>
+
+                            <tr align="center">
+                                <td>Mahasiswa</td>
+                                <td>Gembala</td>
+                                <td>Keuangan FLATS</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="efata" id="efata" value="******"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                            </tr>
+                        </table>
+                        <div class="text-primary">
+                            <i><b>
+                                    *No. Efata wajib diisi 6 digit terakhir sebagai pengganti tanda tangan untuk keperluan verifikasi form.
+                                </b></i>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Semester</label>
-                        <div class="col-lg-9">
-                            <select name='semester' class="form-control" required="true">
-                                <option value='<?= $e["semester"] ?>'><?= $e['semester']; ?></option>
-                                <option value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                                <option value='5'>5</option>
-                                <option value='6'>6</option>
-                                <option value='7'>7</option>
-                                <option value='8'>8</option>
-                                <option value='9'>9</option>
-                                <option value='10'>10</option>
-                                <option value='11'>11</option>
-                                <option value='12'>12</option>
-                                <option value='13'>13</option>
-                                <option value='14'>14</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Tahun Ajaran</label>
-                        <div class="col-lg-9">
-                            <select name='ta' class="form-control">
-                                <option value='<?= $e["ta"] ?>'><?= $e["ta"] ?></option>
-                                <option value='2019'>2019</option>
-                                <option value='2020'>2020</option>
-                                <option value='2021'>2021</option>
-                                <option value='2022'>2022</option>
-                                <option value='2023'>2023</option>
-                                <option value='2024'>2024</option>
-                                <option value='2025'>2025</option>
-                                <option value='2026'>2026</option>
-                                <option value='2027'>2027</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Keperluan</label>
-                        <div class="col-lg-9">
-                            <?php
-                            $qkeperluan = mysqli_query($conn, "SELECT * FROM keperluan ORDER BY id_keperluan");
-                            $rKeperluan = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM keperluan WHERE id_keperluan='$e[keperluan]'"));
-                            ?>
-                            <select name='keperluan' class="form-control">
-                                <option value='<?= $e["keperluan"] ?>'><?= $rKeperluan['nama_keperluan']; ?></option>
-                                <?php
-                                while ($r = mysqli_fetch_array($qkeperluan)) {
-                                    echo "<option value=$r[id_keperluan]>$r[nama_keperluan]</option>";
-                                } ?>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Lainnya</label>
-                        <div class="col-lg-9">
-                            <input type="text" name="other" placeholder="" value='<?= $e["ket"] ?>' class="bg-focus form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Nominal</label>
-                        <div class="col-lg-9">
-                            <input type="number" name="nominal" value='<?= $e["nominal"] ?>' placeholder="" class="bg-focus form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Tanggal</label>
-                        <div class="col-lg-8">
-                            <input type="date" name="tgl_tr" value="<?= $e['tgl']; ?>">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-lg-9 pull-right">
-                            <button type="submit" name='simpan' class="btn btn-info">Simpan Data</button>
-                            <button type="reset" class="btn btn-default">Reset</button>
-
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+    </div>
+
+
+    <script type="text/javascript">
+        var rupiah = document.getElementById('vP1');
+        rupiah.addEventListener('keyup', function(e) {
+            // tambahkan 'Rp.' pada saat ketik nominal di form kolom input
+            // gunakan fungsi formatRupiah() untuk mengubah nominal angka yang di ketik menjadi format angka
+            rupiah.value = formatRupiah(this.value, 'Rp. ');
+        });
+        /* Fungsi formatRupiah */
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            // tambahkan titik jika yang di input sudah menjadi angka satuan ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+    </script>
+
+
+
 <?php
 }
+
 include "footer.php";
 ?>
