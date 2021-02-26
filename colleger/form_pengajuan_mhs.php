@@ -3,7 +3,6 @@ cekLogin();
 
 if (isset($_POST['submit'])) {
     if ($_SESSION['nif'] == $_POST['efata']) {
-        $nif = $_SESSION['nif'];
         $subject = $_POST['subject'];
         $semester = $_POST['semester'];
         $ta = $_POST['ta'];
@@ -15,7 +14,7 @@ if (isset($_POST['submit'])) {
         $acc = isDateEmpty($_POST['acc']);
         $status = 1;
 
-        // INPUT PENGAJUAN 
+        // INPUT Note 
         $query = "INSERT INTO `pengajuan` 
             (`id_pengajuan`, `nif`, `semester`, `ta`, `nohp`, `tgl_sub`, `rev_1`, `rev_2`, `acc`, `status`, `subject`) 
             VALUES (NULL, '$nif', '$semester', '$ta', '$nohp', '$tgl_sub', '$rev_1', '$rev_2', '$acc', '$status', '$subject')";

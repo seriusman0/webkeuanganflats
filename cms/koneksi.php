@@ -94,3 +94,10 @@ function tabelPengeluaran($conn, $tableName)
 	}
 	echo $output;
 }
+
+function statItemCheck($item)
+{
+	if ($item) {
+		return $item;
+	} else return 0;
+}

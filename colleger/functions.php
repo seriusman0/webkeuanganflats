@@ -202,6 +202,15 @@ function submissionTable($id)
             }
         }
 
+        function isNoteEmpty($item)
+        {
+            if ($item != '') {
+                return $item;
+            } else {
+                return NULL;
+            }
+        }
+
         function isDateEmpty($tanggal)
         {
             if ($tanggal == '') {
@@ -218,7 +227,11 @@ function submissionTable($id)
             WHERE `note_fid_pengajuan` = '$idPengajuan' 
             AND `note_by` = '$as'";
             $r = mysqli_fetch_array(mysqli_query($conn, $query));
-            echo $r['note_fill'];
+            if ($r['note_fill'] == '') {
+                return '';
+            } else {
+                echo $r['note_fill'];
+            }
         }
 
         function item($idPengajuan, $row)
