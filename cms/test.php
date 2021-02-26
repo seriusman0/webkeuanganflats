@@ -59,7 +59,6 @@ if (isset($_POST['return'])) {
 
 
 
-
     //UPDATE INFO PENGAJUAN TERLEBIH DAHULU
     $query1 = "UPDATE `pengajuan` SET 
                 `tgl_sub` = '$tgl_sub', 
@@ -90,7 +89,7 @@ if (isset($_POST['return'])) {
         echo "<script>alert('GAGAL UPDATE INFO PENGAJUAN, MOHON PERIKSA KEMBALI KELENGKAPAN FORM')</script>";
         // break;
     }
-    header('location:index.php?page=pengajuanmhs&aksi=edit&id=' . $idPengajuan);
+    // header('location:index.php?page=pengajuanmhs&aksi=edit&id=' . $idPengajuan);
 }
 
 

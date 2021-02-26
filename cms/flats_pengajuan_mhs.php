@@ -373,7 +373,7 @@ if ($_GET['aksi'] == '') {
 
     <div class="col-md-12">
         <div class="panel panel-default">
-            <form action="test.php" method="POST" aria-readonly="true">
+            <form action="test2.php" method="POST" aria-readonly="true">
                 <div class="panel-heading"><strong>Proses Pengajuan</strong>
                     <input type="submit" name="acc" id="acc" value="ACC" class='btn btn-success'>
                     <input type="submit" name="return" id="return" value="REVISI" class='btn btn-danger'>

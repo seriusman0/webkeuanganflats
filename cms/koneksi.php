@@ -97,7 +97,9 @@ function tabelPengeluaran($conn, $tableName)
 
 function statItemCheck($item)
 {
-	if ($item) {
+	if ($item != '') {
 		return $item;
-	} else return 0;
+	} else {
+		echo "0";
+	}
 }
