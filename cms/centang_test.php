@@ -1,6 +1,6 @@
 <?php
 
-function statCheck($item)
+function statItemCheck($item)
 {
     if ($item) {
         return $item;
@@ -8,8 +8,7 @@ function statCheck($item)
 }
 
 if (isset($_POST['submit'])) {
-    echo $_POST['centang'];
-    // echo statCheck($_POST['centang']);
+    echo statItemCheck($_POST['centang']);
 }
 ?>
 <html lang="en">

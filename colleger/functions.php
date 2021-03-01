@@ -245,6 +245,14 @@ function submissionTable($id)
             }
         }
 
+        function penalty($idPengajuan, $row)
+        {
+            global $conn;
+            $id = "SELECT * FROM penalty WHERE penalty.idPengajuan='$idPengajuan' AND penalty.row='$row'";
+            $result = mysqli_fetch_array(mysqli_query($conn, $id));
+            return $result;
+        }
+
         function checkStat($status)
         {
             if ($status == '1') {

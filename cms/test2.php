@@ -11,7 +11,7 @@ if (isset($_POST['return'])) {
     $rev_1 = isDateEmpty($_POST['rev_1']);
     $rev_2 = isDateEmpty($_POST['rev_2']);
     $acc = isDateEmpty($_POST['acc']);
-    $status = 3;
+    // $status = 3;
 
     $note_b = isNoteEmpty($_POST['note_b']);
 
@@ -21,7 +21,7 @@ if (isset($_POST['return'])) {
     $status = array($_POST["status1"], $_POST["status2"], $_POST["status3"], $_POST["status4"], $_POST["status5"], $_POST["status6"], $_POST["status7"], $_POST["status8"], $_POST["status9"], $_POST["status10"]);
 
 
-    $count = 0;
+    // $count = 0;
 
     //TAMBAHAN DARI BIRO
     $baseCount2 = 0;
@@ -29,16 +29,17 @@ if (isset($_POST['return'])) {
 
     while ($count2 < 10) {
         if ($item[$count2] == '') {
+            echo "<script>alert('item kosong')</script>";
             break;
         } else {
             $row = $count2 + 1;
 
-            $query4 = "SELECT `detail_pengajuan`.`id_detail_pengajuan` FROM `detail_pengajuan` WHERE detail_pengajuan.fid_pengajuan = '$idPengajuan' AND `detail_pengajuan`.`row` = '7'";
+            $query4 = "SELECT `detail_pengajuan`.`id_detail_pengajuan` FROM `detail_pengajuan` WHERE `detail_pengajuan`.`fid_pengajuan` = '$idPengajuan' AND `detail_pengajuan`.`row` = '$row'";
             $query3 = "UPDATE `sub_detail_pengajuan`, `detail_pengajuan`, `pengajuan` SET 
                             `sub_detail_pengajuan`.`tglP` = '$tgl[$baseCount2]',
                             `sub_detail_pengajuan`.`itemP` = '$item[$count2]',
                             `sub_detail_pengajuan`.`valAcc` = '$vAcc[$count2]',
-                            `sub_detail_pengajuan`.`status` = '" . statItemCheck($status[$baseCount2]) . "'
+                            `sub_detail_pengajuan`.`status` = '" . statItemCheck($status[$count2]) . "'
                 WHERE `sub_detail_pengajuan`.`fid_detail_pengajuan` = `detail_pengajuan`.`id_detail_pengajuan` 
                 AND `detail_pengajuan`.`row` = '$row'
                 AND `detail_pengajuan`.`fid_pengajuan` = `pengajuan`.`id_pengajuan`
@@ -61,7 +62,7 @@ if (isset($_POST['return'])) {
                         VALUES (NULL, '$lastIdDetailPengajuan', '$tgl[$baseCount2]', 
                         '$item[$count2]', '$vAcc[$count2]', '$status[$count2]')")) {
 
-                        echo "<script>alert('Item Tambahan Biro berhasil')</script>";
+                        echo "<script>alert('Item Tambahan Biro berhasil dengan id = '$lastIdDetailPengajuan)</script>";
                     } else {
                         echo "<script>alert('Item Tambahan Biro GAGAL')</script>";
                     }
@@ -70,7 +71,7 @@ if (isset($_POST['return'])) {
                 }
             }
         }
-        $count += 1;
+        // $count += 1;
         $count2 += 1;
         $baseCount2 += 1;
     }

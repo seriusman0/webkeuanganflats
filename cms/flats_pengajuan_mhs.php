@@ -373,7 +373,7 @@ if ($_GET['aksi'] == '') {
 
     <div class="col-md-12">
         <div class="panel panel-default">
-            <form action="test2.php" method="POST" aria-readonly="true">
+            <form action="updateControl.php" method="POST" aria-readonly="true">
                 <div class="panel-heading"><strong>Proses Pengajuan</strong>
                     <input type="submit" name="acc" id="acc" value="ACC" class='btn btn-success'>
                     <input type="submit" name="return" id="return" value="REVISI" class='btn btn-danger'>
@@ -656,29 +656,29 @@ if ($_GET['aksi'] == '') {
                                 <tbody>
                                     <tr>
                                         <td align="center">1</td>
-                                        <td><input type="date" name="tglP1" id="tglP1" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="itemP1" id="itemP1" value="Pencapaian jurnal semester" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="valueP1" id="valueP1" class="bg-focus form-control"></td>
+                                        <td><input type="date" name="tglP1" id="tglP1" value="<?= penalty($idPengajuan, 1)['tglPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="itemP1" id="itemP1" value="<?= penalty($idPengajuan, 1)['itemPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="valueP1" id="valueP1" value="<?= penalty($idPengajuan, 1)['valuePenalty'] ?>" class="bg-focus form-control"></td>
 
                                     </tr>
                                     <tr>
                                         <td align="center">2</td>
-                                        <td><input type="date" name="tglP2" id="tglP2" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="itemP2" id="itemP2" value="Kelebihan hari Libur" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="valueP2" id="valueP2" class="bg-focus form-control"></td>
+                                        <td><input type="date" name="tglP2" id="tglP2" value="<?= penalty($idPengajuan, 2)['tglPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="itemP2" id="itemP2" value="<?= penalty($idPengajuan, 2)['itemPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="valueP2" id="valueP2" value="<?= penalty($idPengajuan, 2)['valuePenalty'] ?>" class="bg-focus form-control"></td>
 
                                     <tr>
                                         <td align="center">3</td>
-                                        <td><input type="date" name="tglP3" id="tglP3" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="itemP3" id="itemP3" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="valueP3" id="valueP3" class="bg-focus form-control"></td>
+                                        <td><input type="date" name="tglP3" id="tglP3" value="<?= penalty($idPengajuan, 3)['tglPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="itemP3" id="itemP3" value="<?= penalty($idPengajuan, 3)['itemPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="valueP3" id="valueP3" value="<?= penalty($idPengajuan, 3)['valuePenalty'] ?>" class="bg-focus form-control"></td>
 
                                     </tr>
                                     <tr>
                                         <td align="center">4</td>
-                                        <td><input type="date" name="tglP4" id="tglP4" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="itemP4" id="itemP4" class="bg-focus form-control"></td>
-                                        <td><input type="text" name="valueP4" id="valueP4" class="bg-focus form-control"></td>
+                                        <td><input type="date" name="tglP4" id="tglP4" value="<?= penalty($idPengajuan, 4)['tglPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="itemP4" id="itemP4" value="<?= penalty($idPengajuan, 4)['itemPenalty'] ?>" class="bg-focus form-control"></td>
+                                        <td><input type="text" name="valueP4" id="valueP4" value="<?= penalty($idPengajuan, 4)['valuePenalty'] ?>" class="bg-focus form-control"></td>
 
                                     </tr>
                                 </tbody>

@@ -100,6 +100,6 @@ function statItemCheck($item)
 	if ($item != '') {
 		return $item;
 	} else {
-		echo "0";
+		return "0";
 	}
 }

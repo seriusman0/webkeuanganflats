@@ -1,7 +1,6 @@
 <?php
 include "koneksi.php";
 
-
 if (isset($_POST['return'])) {
 
     var_dump($_POST);
@@ -13,7 +12,7 @@ if (isset($_POST['return'])) {
     $rev_1 = isDateEmpty($_POST['rev_1']);
     $rev_2 = isDateEmpty($_POST['rev_2']);
     $acc = isDateEmpty($_POST['acc']);
-    $status = 3;
+    $status1 = 3;
 
     $note_b = isNoteEmpty($_POST['note_b']);
 
@@ -38,26 +37,10 @@ if (isset($_POST['return'])) {
             AND detail_pengajuan.fid_pengajuan = pengajuan.id_pengajuan 
             AND pengajuan.id_pengajuan='$idPengajuan' 
             AND detail_pengajuan.row = '$row'";
-            // echo "<script>alert('count = '$count' dan row = '$row)</script>";
             mysqli_query($conn, $tmpStr);
-
-            // if (mysqli_query($conn, $updateAcc)) {
-            //     // echo "<script>alert('Sukses Menambahkan Nilai Acc')</script>";
-            // } else {
-            //     // echo "<script>alert('Gagal Menambahkan Nilai Acc')</script>";
-            // }
-
-
-            // $lastIdDetailPengajuan = mysqli_insert_id($conn);
-            // $updateNow = date('Y-m-d H:i:s');
         }
         $count += 1;
     }
-
-
-
-
-
 
     //UPDATE INFO PENGAJUAN TERLEBIH DAHULU
     $query1 = "UPDATE `pengajuan` SET 
@@ -65,7 +48,7 @@ if (isset($_POST['return'])) {
                 `rev_1` = '$rev_1', 
                 `rev_2` = '$rev_2', 
                 `acc` = '$acc',
-                `status`= '$status'
+                `status`= '$status1'
     WHERE pengajuan.id_pengajuan = '$idPengajuan'";
     $updateNow = date('Y-m-d H:i:s');
     if (mysqli_query($conn, $query1)) {
@@ -87,47 +70,10 @@ if (isset($_POST['return'])) {
         }
     } else {
         echo "<script>alert('GAGAL UPDATE INFO PENGAJUAN, MOHON PERIKSA KEMBALI KELENGKAPAN FORM')</script>";
-        // break;
     }
     // header('location:index.php?page=pengajuanmhs&aksi=edit&id=' . $idPengajuan);
 }
 
-
-
-
-// // INPUT Note 
-// $query = "INSERT INTO `pengajuan`
-// (`id_pengajuan`, `nif`, `semester`, `ta`, `nohp`, `tgl_sub`, `rev_1`, `rev_2`, `acc`, `status`, `subject`) 
-// VALUES (NULL, '$nif', '$semester', '$ta', '$nohp', '$tgl_sub', '$rev_1', '$rev_2', '$acc', '$status', '$subject')";
-// if (mysqli_query($conn, $query)) {
-// if ($note_c != '') {
-//     $lastId = mysqli_inseCommert_id($conn);
-//     $note_arr = array($note_c, $note_s, $note_b);
-//     $input_comment = "INSERT INTO note(note_fid_pengajuan, note_fill, note_by) VALUES ('$lastId', '$note_c', '0')";
-//     if (mysqli_query($conn, $input_comment)) {
-//         echo "<script>alert('Input comment Berhasil')</script>";
-//     } else {
-//         echo "<script>alert('Input comment Gagal')</script>";
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-//     // //SELESAIKAN UPLOAD KOMENTAR BIRO DULU
-//     // $query = ""
-
-
-// }
-// 
 ?>
 
 <html lang="en">
