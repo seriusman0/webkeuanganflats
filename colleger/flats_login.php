@@ -85,7 +85,7 @@ if (isset($_POST['login'])) {
                                     As Shepherd
                                 </span>
                             </a>
-                            <a class="btn btn--sm btn--primary type--uppercase" href="../bkflats">
+                            <a class="btn btn--sm btn--primary type--uppercase" href="../cms">
                                 <span class="btn__text">
                                     As Admin
                                 </span>

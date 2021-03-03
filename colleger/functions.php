@@ -6,7 +6,7 @@ function submissionTable($id)
     $result = mysqli_query($conn, "SELECT pengajuan.id_pengajuan, pengajuan.subject, pengajuan.status 
     FROM pengajuan, detail_pengajuan, sub_detail_pengajuan
     WHERE pengajuan.id_pengajuan = detail_pengajuan.fid_pengajuan 
-    AND detail_pengajuan.id_detail_pengajuan = sub_detail_pengajuan.fid_detail_pengajuan GROUP BY pengajuan.subject
+    AND detail_pengajuan.id_detail_pengajuan = sub_detail_pengajuan.fid_detail_pengajuan GROUP BY pengajuan.subject ORDER BY update_at DESC
     ");
 
     $no = 1;

@@ -65,8 +65,8 @@ if (isset($_POST['submit'])) {
         }
     } else {
         echo "<script>alert('Efata Yang di masukkan tidak valid, Input Gagal')</script>";
-        header('location:index.php');
     }
+    header('location:index.php?page=submission');
 }
 ?>
 <html>
@@ -117,7 +117,7 @@ if (isset($_POST['submit'])) {
                                 <td>/</td>
                                 <td>
                                     <div class="input-select">
-                                        <select name="semester" id="semester" required oninvalid="this.setCustomValidity('Jangan Lupa isi Semester')">
+                                        <select name="semester" id="semester" required>
                                             <option selected="" value="">Semester</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
