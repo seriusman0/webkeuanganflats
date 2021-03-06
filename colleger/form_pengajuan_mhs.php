@@ -3,6 +3,7 @@ cekLogin();
 
 if (isset($_POST['submit'])) {
     if ($_SESSION['nif'] == $_POST['efata']) {
+        $nif = $_SESSION['nif'];
         $subject = $_POST['subject'];
         $semester = $_POST['semester'];
         $ta = $_POST['ta'];

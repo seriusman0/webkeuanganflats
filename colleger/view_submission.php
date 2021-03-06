@@ -9,8 +9,6 @@ if ($r = mysqli_fetch_array(mysqli_query($conn, $query))) {
     $ipk = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM ipk WHERE ipk.nif='$_SESSION[nif]'"));
 }
 
-
-
 ?>
 <html>
 <html lang="en">

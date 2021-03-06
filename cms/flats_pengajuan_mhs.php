@@ -1,6 +1,5 @@
 <?php
 if ($_GET['aksi'] == '') {
-
 ?>
     <h4 style='padding-top:15px'>Semua Data Pengajuan</h4>
     <!-- Basic Data Tables Example -->
@@ -47,17 +46,17 @@ if ($_GET['aksi'] == '') {
 
                         $no = 1;
                         while ($i = mysqli_fetch_array($pengajuan)) {
-                            $semPeriod = "Ganjil";
-                            if ((intval($i['semester'] % 2)) == 0) {
-                                $semPeriod = "Genap";
-                            }
+                            // $semPeriod = "Ganjil";
+                            // if ((intval($i['semester'] % 2)) == 0) {
+                            //     $semPeriod = "Genap";
+                            // }
                             echo "<tr class='gradeX'>
                                     <td>$no</td>
                                     <td>$i[nama_mhs]</td>
                                     <td align=center>$i[angkatan]</td>
                                     <td>$i[nama_kampus]</td>
                                     <td>$i[subject]</td>
-                                    <td>" . $i['status'] . "</td>
+                                    <td>" . sub_status($i['status']) . "</td>
                                     <td>" . tgl_indo($i['update_at']) . "</td>";
                             echo "<td style='width:80px' class='text-right'>
                                                   <a class='btn' href='index.php?page=pengajuanmhs&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
@@ -114,23 +113,23 @@ if ($_GET['aksi'] == '') {
                                 pengajuan.update_at
                         FROM pengajuan, mahasiswa, kampus, keperluan 
                         WHERE 	pengajuan.nif = mahasiswa.nif && 
-                            mahasiswa.kampus = kampus.npsn GROUP BY pengajuan.id_pengajuan 
+                            mahasiswa.kampus = kampus.npsn && pengajuan.update_at BETWEEN CURRENT_DATE AND CURRENT_DATE+1 GROUP BY pengajuan.id_pengajuan 
                     ORDER BY pengajuan.update_at DESC "
                         );
 
                         $no = 1;
                         while ($i = mysqli_fetch_array($pengajuan)) {
-                            $semPeriod = "Ganjil";
-                            if ((intval($i['semester'] % 2)) == 0) {
-                                $semPeriod = "Genap";
-                            }
+                            // $semPeriod = "Ganjil";
+                            // if ((intval($i['semester'] % 2)) == 0) {
+                            //     $semPeriod = "Genap";
+                            // }
                             echo "<tr class='gradeX'>
                                     <td>$no</td>
                                     <td>$i[nama_mhs]</td>
                                     <td align=center>$i[angkatan]</td>
                                     <td>$i[nama_kampus]</td>
                                     <td>$i[subject]</td>
-                                    <td>" . $i['status'] . "</td>
+                                    <td>" . sub_status($i['status']) . "</td>
                                     <td>" . tgl_indo($i['update_at']) . "</td>";
                             echo "<td style='width:80px' class='text-right'>
                                                   <a class='btn' href='index.php?page=pengajuanmhs&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
@@ -188,23 +187,23 @@ if ($_GET['aksi'] == '') {
                                 pengajuan.update_at
                         FROM pengajuan, mahasiswa, kampus, keperluan 
                         WHERE 	pengajuan.nif = mahasiswa.nif && 
-                            mahasiswa.kampus = kampus.npsn GROUP BY pengajuan.id_pengajuan 
+                            mahasiswa.kampus = kampus.npsn && pengajuan.update_at BETWEEN CURRENT_DATE-3 AND CURRENT_DATE+1  GROUP BY pengajuan.id_pengajuan 
                     ORDER BY pengajuan.update_at DESC "
                         );
 
                         $no = 1;
                         while ($i = mysqli_fetch_array($pengajuan)) {
-                            $semPeriod = "Ganjil";
-                            if ((intval($i['semester'] % 2)) == 0) {
-                                $semPeriod = "Genap";
-                            }
+                            // $semPeriod = "Ganjil";
+                            // if ((intval($i['semester'] % 2)) == 0) {
+                            //     $semPeriod = "Genap";
+                            // }
                             echo "<tr class='gradeX'>
                                     <td>$no</td>
                                     <td>$i[nama_mhs]</td>
                                     <td align=center>$i[angkatan]</td>
                                     <td>$i[nama_kampus]</td>
                                     <td>$i[subject]</td>
-                                    <td>" . $i['status'] . "</td>
+                                    <td>" . sub_status($i['status']) . "</td>
                                     <td>" . tgl_indo($i['update_at']) . "</td>";
                             echo "<td style='width:80px' class='text-right'>
                                                   <a class='btn' href='index.php?page=pengajuanmhs&aksi=edit&id=$i[id_pengajuan]' title='Edit Data pengajuan ini'><i class='fa fa-pencil-square-o'></i></a>
@@ -427,7 +426,7 @@ if ($_GET['aksi'] == '') {
                                             </td>
 
                                             <td>
-                                                <input type="number" name="ipk" id="ipk" value="<?= $ipk[$r['semester'] - 1] ?>" max="4">
+                                                <input type="number" name="ipk" id="ipk" value="<?= $ipk[1] ?>" max="4">
                                             </td>
                                         </tr>
                                     </font>
@@ -696,7 +695,7 @@ if ($_GET['aksi'] == '') {
                                     <td><input type="text" class="bg-focus form-control"></td>
                                     <td><input type="text" class="bg-focus form-control"></td>
                                 </tr>
-                                <input type="number" name="idPengajuan" id="idPengajuan" value="<?= $idPengajuan ?>">
+                                <input type="number" name="idPengajuan" hidden id="idPengajuan" value="<?= $idPengajuan ?>">
             </form>
             </table>
             <div class="text-primary">
@@ -719,6 +718,7 @@ if ($_GET['aksi'] == '') {
             // gunakan fungsi formatRupiah() untuk mengubah nominal angka yang di ketik menjadi format angka
             rupiah.value = formatRupiah(this.value, 'Rp. ');
         });
+
         /* Fungsi formatRupiah */
         function formatRupiah(angka, prefix) {
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -738,6 +738,7 @@ if ($_GET['aksi'] == '') {
         }
 
         $(document).ready(function() {
+
             $("#vAcc1, #vAcc2, #vAcc3, #vAcc4, #vAcc5, #vAcc6, #vAcc7, #vAcc8, #vAcc9, #vAcc10").keyup(function() {
                 var vAcc1 = $("#vAcc1").val();
                 var vAcc2 = $("#vAcc2").val();

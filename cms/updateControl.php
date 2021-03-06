@@ -165,5 +165,13 @@ if (isset($_POST['return'])) {
     } else {
         echo "<script>alert('GAGAL UPDATE INFO PENGAJUAN, MOHON PERIKSA KEMBALI KELENGKAPAN FORM')</script>";
     }
-    // header('location:index.php?page=pengajuanmhs&aksi=edit&id=' . $idPengajuan);
+    header('location:index.php?page=pengajuanmhs');
+}
+
+if (isset($_POST['acc'])) {
+    $idPengajuan = $_POST['idPengajuan'];
+    echo "<script>alert('berhasil masuk ke acc')</script>";
+    $sql = "UPDATE `pengajuan` SET `pengajuan`.`status` = '4' WHERE `pengajuan`.`id_pengajuan` = '$idPengajuan'";
+    mysqli_query($conn, $sql);
+    header('location:index.php?page=pengajuanmhs');
 }
